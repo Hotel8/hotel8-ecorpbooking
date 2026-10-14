@@ -1,0 +1,51 @@
+{
+  "vertical": "hotel8",
+  "services": [],
+  "apps": [
+    {
+      "slug": "ecorpbooking",
+      "web_dir": "build/web",
+      "listing": {
+        "app_name": "Hotel8:eCorpBooking",
+        "app_slug": "hotel8-ecorpbooking",
+        "description": "Hotel corporate portal — multi-property dashboard, revenue management, reporting, and group-level configuration.",
+        "backend_url": "",
+        "supports_dcr": true,
+        "visibility": "public",
+        "status": "published",
+        "auth_mode": "staff",
+        "oauth_defaults": {
+          "grant_types": [
+            "authorization_code",
+            "refresh_token"
+          ],
+          "response_types": [
+            "code"
+          ],
+          "token_endpoint_auth_method": "none",
+          "scopes": [
+            "openid",
+            "profile",
+            "email",
+            "hotel8:pms:reservations:read",
+            "hotel8:pms:reservations:write",
+            "hotel8:pms:rooms:read",
+            "hotel8:pms:rates:read",
+            "hotel8:pms:rates:write",
+            "hotel8:pos:orders:read",
+            "hotel8:pos:orders:write",
+            "upsell:offers:read",
+            "upsell:offers:write",
+            "loyalty:profile:read",
+            "loyalty:profile:write",
+            "hotel8:meta:channels:read",
+            "hotel8:meta:channels:write",
+            "hotel8:dist:channels:read",
+            "hotel8:dist:channels:write"
+          ],
+          "consent_required": false
+        }
+      }
+    }
+  ]
+}
