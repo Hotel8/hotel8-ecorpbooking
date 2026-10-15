@@ -19,9 +19,9 @@ import 'models.dart';
 
 class BffClient {
   BffClient({String? baseUrl, String? propertyId, http.Client? httpClient})
-    : _baseUrl = baseUrl ?? _resolveBaseUrl(),
-      _propertyId = propertyId ?? '',
-      _httpClient = httpClient ?? http.Client();
+      : _baseUrl = baseUrl ?? _resolveBaseUrl(),
+        _propertyId = propertyId ?? '',
+        _httpClient = httpClient ?? http.Client();
 
   final String _baseUrl;
 
@@ -88,9 +88,9 @@ class BffClient {
   }
 
   Map<String, String> _headers() => {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  };
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      };
 
   Future<Map<String, dynamic>> _handle(http.Response resp) async {
     final body = resp.body.isEmpty ? '{}' : resp.body;
@@ -311,8 +311,7 @@ class BffClient {
       '/reservations?guest_profile_id=${Uri.encodeComponent(companyId)}'
       '&${qs.join('&')}',
     );
-    final list =
-        json['reservations'] as List<dynamic>? ??
+    final list = json['reservations'] as List<dynamic>? ??
         json['bookings'] as List<dynamic>? ??
         json['data'] as List<dynamic>? ??
         const [];
@@ -354,8 +353,7 @@ class BffClient {
     final json = await _getJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId/profiles',
     );
-    final list =
-        json['travelers'] as List<dynamic>? ??
+    final list = json['travelers'] as List<dynamic>? ??
         json['data'] as List<dynamic>? ??
         const [];
     return list
@@ -399,8 +397,7 @@ class BffClient {
     final json = await _getJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId/profiles/\$companyId/policies',
     );
-    final list =
-        json['policies'] as List<dynamic>? ??
+    final list = json['policies'] as List<dynamic>? ??
         json['data'] as List<dynamic>? ??
         const [];
     return list
@@ -430,8 +427,7 @@ class BffClient {
     final json = await _getJson(
       '/proxy/post/v1/messages?category=ANNOUNCEMENT',
     );
-    final list =
-        json['announcements'] as List<dynamic>? ??
+    final list = json['announcements'] as List<dynamic>? ??
         json['data'] as List<dynamic>? ??
         const [];
     return list
@@ -515,8 +511,7 @@ class BffClient {
     final json = await _getJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId/reports/channel-performance\$query',
     );
-    final list =
-        json['properties'] as List<dynamic>? ??
+    final list = json['properties'] as List<dynamic>? ??
         json['data'] as List<dynamic>? ??
         const [];
     return list
@@ -537,8 +532,7 @@ class BffClient {
     final json = await _getJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId/reports/guest-history\$query',
     );
-    final list =
-        json['travelers'] as List<dynamic>? ??
+    final list = json['travelers'] as List<dynamic>? ??
         json['data'] as List<dynamic>? ??
         const [];
     return list
@@ -559,8 +553,7 @@ class BffClient {
     final json = await _getJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId/reports/occupancy\$query',
     );
-    final list =
-        json['months'] as List<dynamic>? ??
+    final list = json['months'] as List<dynamic>? ??
         json['data'] as List<dynamic>? ??
         const [];
     return list

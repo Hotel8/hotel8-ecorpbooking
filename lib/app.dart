@@ -196,8 +196,7 @@ class _SearchTabState extends State<_SearchTab> {
   }
 
   Future<void> _pickCheckOut() async {
-    final first =
-        _checkIn?.add(const Duration(days: 1)) ??
+    final first = _checkIn?.add(const Duration(days: 1)) ??
         DateTime.now().add(const Duration(days: 1));
     final date = await showDatePicker(
       context: context,

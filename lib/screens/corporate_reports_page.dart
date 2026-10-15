@@ -71,8 +71,7 @@ class _CorporateReportsPageState extends State<CorporateReportsPage> {
 
   Future<void> _pickDateRange() async {
     final now = DateTime.now();
-    final initial =
-        _dateRange ??
+    final initial = _dateRange ??
         DateTimeRange(start: now.subtract(const Duration(days: 90)), end: now);
     final range = await showDateRangePicker(
       context: context,
@@ -148,8 +147,8 @@ class _CorporateReportsPageState extends State<CorporateReportsPage> {
                   child: Text(
                     '${DateFormat('MMM d, y').format(_dateRange!.start)} — ${DateFormat('MMM d, y').format(_dateRange!.end)}',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                   ),
                 ),
               ),
@@ -358,7 +357,9 @@ class _StatCard extends StatelessWidget {
             const Spacer(),
             Text(
               value,
-              style: Theme.of(context).textTheme.titleLarge
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
           ],
@@ -382,7 +383,9 @@ class _SectionHeader extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 12),
       child: Text(
         title,
-        style: Theme.of(context).textTheme.titleMedium
+        style: Theme.of(context)
+            .textTheme
+            .titleMedium
             ?.copyWith(fontWeight: FontWeight.w600),
       ),
     );

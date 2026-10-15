@@ -163,14 +163,14 @@ class _TravelerManagementPageState extends State<TravelerManagementPage> {
                       .where(
                         (t) =>
                             t.fullName.toLowerCase().contains(
-                              _searchQuery.toLowerCase(),
-                            ) ||
+                                  _searchQuery.toLowerCase(),
+                                ) ||
                             t.email.toLowerCase().contains(
-                              _searchQuery.toLowerCase(),
-                            ) ||
+                                  _searchQuery.toLowerCase(),
+                                ) ||
                             (t.department ?? '').toLowerCase().contains(
-                              _searchQuery.toLowerCase(),
-                            ),
+                                  _searchQuery.toLowerCase(),
+                                ),
                       )
                       .toList();
                 }
@@ -385,12 +385,10 @@ class _TravelerEditPageState extends State<TravelerEditPage> {
         lastName: _lastName.text.trim(),
         email: _email.text.trim(),
         phone: _phone.text.trim().isEmpty ? null : _phone.text.trim(),
-        department: _department.text.trim().isEmpty
-            ? null
-            : _department.text.trim(),
-        costCenter: _costCenter.text.trim().isEmpty
-            ? null
-            : _costCenter.text.trim(),
+        department:
+            _department.text.trim().isEmpty ? null : _department.text.trim(),
+        costCenter:
+            _costCenter.text.trim().isEmpty ? null : _costCenter.text.trim(),
         role: _role,
         canBookForOthers: _canBookForOthers,
         isActive: _isActive,
@@ -564,7 +562,9 @@ class _TravelerEditPageState extends State<TravelerEditPage> {
             // ── Loyalty ───────────────────────────────────────────────
             Text(
               'Loyalty Memberships (optional)',
-              style: Theme.of(context).textTheme.titleSmall
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall
                   ?.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),

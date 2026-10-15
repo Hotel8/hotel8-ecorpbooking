@@ -75,8 +75,7 @@ class _CorporateDashboardPageState extends State<CorporateDashboardPage> {
   }
 
   Future<void> _pickCheckOut() async {
-    final first =
-        _checkIn?.add(const Duration(days: 1)) ??
+    final first = _checkIn?.add(const Duration(days: 1)) ??
         DateTime.now().add(const Duration(days: 1));
     final date = await showDatePicker(
       context: context,
@@ -392,7 +391,8 @@ class _CorporateDashboardPageState extends State<CorporateDashboardPage> {
                   if (list.isEmpty) {
                     return const _EmptyCard(
                       icon: Icons.event_available,
-                      message: 'No upcoming bookings. Search to book your next trip.',
+                      message:
+                          'No upcoming bookings. Search to book your next trip.',
                     );
                   }
                   return Column(
@@ -456,14 +456,16 @@ class _CorporateDashboardPageState extends State<CorporateDashboardPage> {
       Announcement(
         id: '1',
         title: 'New Negotiated Rates Available',
-        body: 'We have secured new corporate rates for the downtown properties effective this quarter. Enjoy up to 25% savings.',
+        body:
+            'We have secured new corporate rates for the downtown properties effective this quarter. Enjoy up to 25% savings.',
         publishedAt: now.subtract(const Duration(days: 2)),
         category: 'Rates',
       ),
       Announcement(
         id: '2',
         title: 'Travel Policy Update',
-        body: 'All bookings must be made at least 7 days in advance. Same-day bookings require manager approval.',
+        body:
+            'All bookings must be made at least 7 days in advance. Same-day bookings require manager approval.',
         publishedAt: now.subtract(const Duration(days: 7)),
         category: 'Policy',
       ),

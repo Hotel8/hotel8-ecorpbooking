@@ -511,8 +511,8 @@ class _RequestAccessSheetState extends State<_RequestAccessSheet> {
             Text(
               'Tell us about your company and our hotel sales team will set up your corporate account.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
             ),
             const SizedBox(height: 24),
             TextFormField(

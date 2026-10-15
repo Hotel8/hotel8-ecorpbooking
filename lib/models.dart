@@ -49,39 +49,40 @@ class Company {
   });
 
   factory Company.fromJson(Map<String, dynamic> json) => Company(
-    id: json['id'] as String,
-    companyCode: json['company_code'] as String,
-    companyName: json['company_name'] as String,
-    domain: json['domain'] as String?,
-    industry: json['industry'] as String?,
-    taxId: json['tax_id'] as String?,
-    currencyCode: json['currency_code'] as String? ?? 'USD',
-    hasSso: json['has_sso'] as bool? ?? false,
-    ssoProvider: json['sso_provider'] as String?,
-    postPayApproved: json['post_pay_approved'] as bool? ?? false,
-    billToCompanyApproved: json['bill_to_company_approved'] as bool? ?? false,
-    creditLimit: (json['credit_limit'] as num?)?.toDouble(),
-    paymentTerms: json['payment_terms'] as String?,
-    createdAt: json['created_at'] != null
-        ? DateTime.tryParse(json['created_at'] as String)
-        : null,
-  );
+        id: json['id'] as String,
+        companyCode: json['company_code'] as String,
+        companyName: json['company_name'] as String,
+        domain: json['domain'] as String?,
+        industry: json['industry'] as String?,
+        taxId: json['tax_id'] as String?,
+        currencyCode: json['currency_code'] as String? ?? 'USD',
+        hasSso: json['has_sso'] as bool? ?? false,
+        ssoProvider: json['sso_provider'] as String?,
+        postPayApproved: json['post_pay_approved'] as bool? ?? false,
+        billToCompanyApproved:
+            json['bill_to_company_approved'] as bool? ?? false,
+        creditLimit: (json['credit_limit'] as num?)?.toDouble(),
+        paymentTerms: json['payment_terms'] as String?,
+        createdAt: json['created_at'] != null
+            ? DateTime.tryParse(json['created_at'] as String)
+            : null,
+      );
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'company_code': companyCode,
-    'company_name': companyName,
-    'domain': domain,
-    'industry': industry,
-    'tax_id': taxId,
-    'currency_code': currencyCode,
-    'has_sso': hasSso,
-    'sso_provider': ssoProvider,
-    'post_pay_approved': postPayApproved,
-    'bill_to_company_approved': billToCompanyApproved,
-    'credit_limit': creditLimit,
-    'payment_terms': paymentTerms,
-  };
+        'id': id,
+        'company_code': companyCode,
+        'company_name': companyName,
+        'domain': domain,
+        'industry': industry,
+        'tax_id': taxId,
+        'currency_code': currencyCode,
+        'has_sso': hasSso,
+        'sso_provider': ssoProvider,
+        'post_pay_approved': postPayApproved,
+        'bill_to_company_approved': billToCompanyApproved,
+        'credit_limit': creditLimit,
+        'payment_terms': paymentTerms,
+      };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -106,31 +107,31 @@ class Address {
   });
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
-    addressLine1: json['address_line1'] as String?,
-    addressLine2: json['address_line2'] as String?,
-    city: json['city'] as String?,
-    state: json['state'] as String?,
-    postalCode: json['postal_code'] as String?,
-    country: json['country'] as String?,
-  );
+        addressLine1: json['address_line1'] as String?,
+        addressLine2: json['address_line2'] as String?,
+        city: json['city'] as String?,
+        state: json['state'] as String?,
+        postalCode: json['postal_code'] as String?,
+        country: json['country'] as String?,
+      );
 
   Map<String, dynamic> toJson() => {
-    'address_line1': addressLine1,
-    'address_line2': addressLine2,
-    'city': city,
-    'state': state,
-    'postal_code': postalCode,
-    'country': country,
-  };
+        'address_line1': addressLine1,
+        'address_line2': addressLine2,
+        'city': city,
+        'state': state,
+        'postal_code': postalCode,
+        'country': country,
+      };
 
   String get oneLine => [
-    addressLine1,
-    addressLine2,
-    city,
-    state,
-    postalCode,
-    country,
-  ].whereType<String>().where((s) => s.isNotEmpty).join(', ');
+        addressLine1,
+        addressLine2,
+        city,
+        state,
+        postalCode,
+        country,
+      ].whereType<String>().where((s) => s.isNotEmpty).join(', ');
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -173,22 +174,22 @@ class CorporateRate {
   });
 
   factory CorporateRate.fromJson(Map<String, dynamic> json) => CorporateRate(
-    id: json['id'] as String,
-    ratePlanCode: json['rate_plan_code'] as String,
-    ratePlanName: json['rate_plan_name'] as String? ?? '',
-    propertyCode: json['property_code'] as String,
-    propertyName: json['property_name'] as String? ?? '',
-    propertyCity: json['property_city'] as String? ?? '',
-    roomTypeCode: json['room_type_code'] as String,
-    roomTypeName: json['room_type_name'] as String? ?? '',
-    corporateRate: (json['corporate_rate'] as num?)?.toDouble() ?? 0.0,
-    publicRate: (json['public_rate'] as num?)?.toDouble() ?? 0.0,
-    currencyCode: json['currency_code'] as String? ?? 'USD',
-    cancellationPolicy: json['cancellation_policy'] as String?,
-    guaranteePolicy: json['guarantee_policy'] as String?,
-    breakfastIncluded: json['breakfast_included'] as bool? ?? false,
-    isAvailable: json['is_available'] as bool? ?? true,
-  );
+        id: json['id'] as String,
+        ratePlanCode: json['rate_plan_code'] as String,
+        ratePlanName: json['rate_plan_name'] as String? ?? '',
+        propertyCode: json['property_code'] as String,
+        propertyName: json['property_name'] as String? ?? '',
+        propertyCity: json['property_city'] as String? ?? '',
+        roomTypeCode: json['room_type_code'] as String,
+        roomTypeName: json['room_type_name'] as String? ?? '',
+        corporateRate: (json['corporate_rate'] as num?)?.toDouble() ?? 0.0,
+        publicRate: (json['public_rate'] as num?)?.toDouble() ?? 0.0,
+        currencyCode: json['currency_code'] as String? ?? 'USD',
+        cancellationPolicy: json['cancellation_policy'] as String?,
+        guaranteePolicy: json['guarantee_policy'] as String?,
+        breakfastIncluded: json['breakfast_included'] as bool? ?? false,
+        isAvailable: json['is_available'] as bool? ?? true,
+      );
 
   double get savings => publicRate - corporateRate;
   double get savingsPercent =>
@@ -259,41 +260,41 @@ class Traveler {
   });
 
   factory Traveler.fromJson(Map<String, dynamic> json) => Traveler(
-    id: json['id'] as String,
-    companyId: json['company_id'] as String,
-    firstName: json['first_name'] as String,
-    lastName: json['last_name'] as String,
-    email: json['email'] as String,
-    phone: json['phone'] as String?,
-    department: json['department'] as String?,
-    costCenter: json['cost_center'] as String?,
-    role: TravelerRoleX.fromString(json['role'] as String? ?? 'traveler'),
-    canBookForOthers: json['can_book_for_others'] as bool? ?? false,
-    isActive: json['is_active'] as bool? ?? true,
-    loyaltyProgram: json['loyalty_program'] as String?,
-    loyaltyNumber: json['loyalty_number'] as String?,
-    preferences:
-        (json['preferences'] as List<dynamic>?)?.cast<String>() ?? const [],
-    assignedPolicyId: json['assigned_policy_id'] as String?,
-  );
+        id: json['id'] as String,
+        companyId: json['company_id'] as String,
+        firstName: json['first_name'] as String,
+        lastName: json['last_name'] as String,
+        email: json['email'] as String,
+        phone: json['phone'] as String?,
+        department: json['department'] as String?,
+        costCenter: json['cost_center'] as String?,
+        role: TravelerRoleX.fromString(json['role'] as String? ?? 'traveler'),
+        canBookForOthers: json['can_book_for_others'] as bool? ?? false,
+        isActive: json['is_active'] as bool? ?? true,
+        loyaltyProgram: json['loyalty_program'] as String?,
+        loyaltyNumber: json['loyalty_number'] as String?,
+        preferences:
+            (json['preferences'] as List<dynamic>?)?.cast<String>() ?? const [],
+        assignedPolicyId: json['assigned_policy_id'] as String?,
+      );
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'company_id': companyId,
-    'first_name': firstName,
-    'last_name': lastName,
-    'email': email,
-    'phone': phone,
-    'department': department,
-    'cost_center': costCenter,
-    'role': role.name,
-    'can_book_for_others': canBookForOthers,
-    'is_active': isActive,
-    'loyalty_program': loyaltyProgram,
-    'loyalty_number': loyaltyNumber,
-    'preferences': preferences,
-    'assigned_policy_id': assignedPolicyId,
-  };
+        'id': id,
+        'company_id': companyId,
+        'first_name': firstName,
+        'last_name': lastName,
+        'email': email,
+        'phone': phone,
+        'department': department,
+        'cost_center': costCenter,
+        'role': role.name,
+        'can_book_for_others': canBookForOthers,
+        'is_active': isActive,
+        'loyalty_program': loyaltyProgram,
+        'loyalty_number': loyaltyNumber,
+        'preferences': preferences,
+        'assigned_policy_id': assignedPolicyId,
+      };
 
   String get fullName => '$firstName $lastName';
 }
@@ -440,43 +441,44 @@ class CorporateBooking {
 
   factory CorporateBooking.fromJson(
     Map<String, dynamic> json,
-  ) => CorporateBooking(
-    id: json['id'] as String,
-    confirmationNumber: json['confirmation_number'] as String? ?? '',
-    companyId: json['company_id'] as String,
-    travelerId: json['traveler_id'] as String,
-    travelerName: json['traveler_name'] as String? ?? '',
-    status: CorporateBookingStatus.fromString(
-      json['status'] as String? ?? 'confirmed',
-    ),
-    propertyCode: json['property_code'] as String,
-    propertyName: json['property_name'] as String? ?? '',
-    propertyCity: json['property_city'] as String? ?? '',
-    arrivalDate:
-        DateTime.tryParse(json['arrival_date'] as String? ?? '') ??
-        DateTime.now(),
-    departureDate:
-        DateTime.tryParse(json['departure_date'] as String? ?? '') ??
-        DateTime.now(),
-    numberOfNights: (json['number_of_nights'] as num?)?.toInt() ?? 1,
-    numberOfRooms: (json['number_of_rooms'] as num?)?.toInt() ?? 1,
-    numberOfGuests: (json['number_of_guests'] as num?)?.toInt() ?? 1,
-    roomTypeName: json['room_type_name'] as String? ?? '',
-    ratePlanName: json['rate_plan_name'] as String? ?? '',
-    rateAmount: (json['rate_amount'] as num?)?.toDouble() ?? 0.0,
-    publicRateAmount: (json['public_rate_amount'] as num?)?.toDouble() ?? 0.0,
-    currencyCode: json['currency_code'] as String? ?? 'USD',
-    paymentMethod: PaymentMethodX.fromString(json['payment_method'] as String?),
-    poNumber: json['po_number'] as String?,
-    projectCode: json['project_code'] as String?,
-    costCenter: json['cost_center'] as String?,
-    purposeOfTravel: json['purpose_of_travel'] as String?,
-    policyCompliant: json['policy_compliant'] as bool? ?? true,
-    policyViolationReason: json['policy_violation_reason'] as String?,
-    createdAt:
-        DateTime.tryParse(json['created_at'] as String? ?? '') ??
-        DateTime.now(),
-  );
+  ) =>
+      CorporateBooking(
+        id: json['id'] as String,
+        confirmationNumber: json['confirmation_number'] as String? ?? '',
+        companyId: json['company_id'] as String,
+        travelerId: json['traveler_id'] as String,
+        travelerName: json['traveler_name'] as String? ?? '',
+        status: CorporateBookingStatus.fromString(
+          json['status'] as String? ?? 'confirmed',
+        ),
+        propertyCode: json['property_code'] as String,
+        propertyName: json['property_name'] as String? ?? '',
+        propertyCity: json['property_city'] as String? ?? '',
+        arrivalDate: DateTime.tryParse(json['arrival_date'] as String? ?? '') ??
+            DateTime.now(),
+        departureDate:
+            DateTime.tryParse(json['departure_date'] as String? ?? '') ??
+                DateTime.now(),
+        numberOfNights: (json['number_of_nights'] as num?)?.toInt() ?? 1,
+        numberOfRooms: (json['number_of_rooms'] as num?)?.toInt() ?? 1,
+        numberOfGuests: (json['number_of_guests'] as num?)?.toInt() ?? 1,
+        roomTypeName: json['room_type_name'] as String? ?? '',
+        ratePlanName: json['rate_plan_name'] as String? ?? '',
+        rateAmount: (json['rate_amount'] as num?)?.toDouble() ?? 0.0,
+        publicRateAmount:
+            (json['public_rate_amount'] as num?)?.toDouble() ?? 0.0,
+        currencyCode: json['currency_code'] as String? ?? 'USD',
+        paymentMethod:
+            PaymentMethodX.fromString(json['payment_method'] as String?),
+        poNumber: json['po_number'] as String?,
+        projectCode: json['project_code'] as String?,
+        costCenter: json['cost_center'] as String?,
+        purposeOfTravel: json['purpose_of_travel'] as String?,
+        policyCompliant: json['policy_compliant'] as bool? ?? true,
+        policyViolationReason: json['policy_violation_reason'] as String?,
+        createdAt: DateTime.tryParse(json['created_at'] as String? ?? '') ??
+            DateTime.now(),
+      );
 
   double get savings =>
       publicRateAmount > 0 ? publicRateAmount - rateAmount : 0.0;
@@ -518,22 +520,22 @@ class CorporateBookingCreate {
   });
 
   Map<String, dynamic> toJson() => {
-    'arrival_date': _dateStr(arrivalDate),
-    'departure_date': _dateStr(departureDate),
-    'number_of_rooms': numberOfRooms,
-    'number_of_guests': numberOfGuests,
-    'property_code': propertyCode,
-    'room_type_code': roomTypeCode,
-    'rate_plan_code': ratePlanCode,
-    'traveler_id': travelerId,
-    'payment_method': paymentMethod.apiValue,
-    'po_number': poNumber,
-    'project_code': projectCode,
-    'cost_center': costCenter,
-    'purpose_of_travel': purposeOfTravel,
-    'credit_card_token': creditCardToken,
-    'special_requests': specialRequests,
-  };
+        'arrival_date': _dateStr(arrivalDate),
+        'departure_date': _dateStr(departureDate),
+        'number_of_rooms': numberOfRooms,
+        'number_of_guests': numberOfGuests,
+        'property_code': propertyCode,
+        'room_type_code': roomTypeCode,
+        'rate_plan_code': ratePlanCode,
+        'traveler_id': travelerId,
+        'payment_method': paymentMethod.apiValue,
+        'po_number': poNumber,
+        'project_code': projectCode,
+        'cost_center': costCenter,
+        'purpose_of_travel': purposeOfTravel,
+        'credit_card_token': creditCardToken,
+        'special_requests': specialRequests,
+      };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -574,44 +576,48 @@ class TravelPolicy {
   });
 
   factory TravelPolicy.fromJson(Map<String, dynamic> json) => TravelPolicy(
-    id: json['id'] as String,
-    companyId: json['company_id'] as String,
-    policyName: json['policy_name'] as String? ?? '',
-    maxRatePerNight: (json['max_rate_per_night'] as num?)?.toDouble() ?? 0,
-    currencyCode: json['currency_code'] as String? ?? 'USD',
-    maxAdvanceDays: (json['max_advance_days'] as num?)?.toInt() ?? 90,
-    minLeadDays: (json['min_lead_days'] as num?)?.toInt() ?? 0,
-    approvedPropertyCodes:
-        (json['approved_property_codes'] as List<dynamic>?)?.cast<String>() ??
-        const [],
-    approvedCities:
-        (json['approved_cities'] as List<dynamic>?)?.cast<String>() ?? const [],
-    requireApprovalForOutPolicy:
-        json['require_approval_for_out_policy'] as bool? ?? true,
-    allowWeekendBooking: json['allow_weekend_booking'] as bool? ?? true,
-    requirePurposeOfTravel: json['require_purpose_of_travel'] as bool? ?? false,
-    allowedPaymentMethods:
-        (json['allowed_payment_methods'] as List<dynamic>?)?.cast<String>() ??
-        const [],
-    isActive: json['is_active'] as bool? ?? true,
-  );
+        id: json['id'] as String,
+        companyId: json['company_id'] as String,
+        policyName: json['policy_name'] as String? ?? '',
+        maxRatePerNight: (json['max_rate_per_night'] as num?)?.toDouble() ?? 0,
+        currencyCode: json['currency_code'] as String? ?? 'USD',
+        maxAdvanceDays: (json['max_advance_days'] as num?)?.toInt() ?? 90,
+        minLeadDays: (json['min_lead_days'] as num?)?.toInt() ?? 0,
+        approvedPropertyCodes:
+            (json['approved_property_codes'] as List<dynamic>?)
+                    ?.cast<String>() ??
+                const [],
+        approvedCities:
+            (json['approved_cities'] as List<dynamic>?)?.cast<String>() ??
+                const [],
+        requireApprovalForOutPolicy:
+            json['require_approval_for_out_policy'] as bool? ?? true,
+        allowWeekendBooking: json['allow_weekend_booking'] as bool? ?? true,
+        requirePurposeOfTravel:
+            json['require_purpose_of_travel'] as bool? ?? false,
+        allowedPaymentMethods:
+            (json['allowed_payment_methods'] as List<dynamic>?)
+                    ?.cast<String>() ??
+                const [],
+        isActive: json['is_active'] as bool? ?? true,
+      );
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'company_id': companyId,
-    'policy_name': policyName,
-    'max_rate_per_night': maxRatePerNight,
-    'currency_code': currencyCode,
-    'max_advance_days': maxAdvanceDays,
-    'min_lead_days': minLeadDays,
-    'approved_property_codes': approvedPropertyCodes,
-    'approved_cities': approvedCities,
-    'require_approval_for_out_policy': requireApprovalForOutPolicy,
-    'allow_weekend_booking': allowWeekendBooking,
-    'require_purpose_of_travel': requirePurposeOfTravel,
-    'allowed_payment_methods': allowedPaymentMethods,
-    'is_active': isActive,
-  };
+        'id': id,
+        'company_id': companyId,
+        'policy_name': policyName,
+        'max_rate_per_night': maxRatePerNight,
+        'currency_code': currencyCode,
+        'max_advance_days': maxAdvanceDays,
+        'min_lead_days': minLeadDays,
+        'approved_property_codes': approvedPropertyCodes,
+        'approved_cities': approvedCities,
+        'require_approval_for_out_policy': requireApprovalForOutPolicy,
+        'allow_weekend_booking': allowWeekendBooking,
+        'require_purpose_of_travel': requirePurposeOfTravel,
+        'allowed_payment_methods': allowedPaymentMethods,
+        'is_active': isActive,
+      };
 
   /// Check whether a given rate is within the policy cap.
   bool isRateCompliant(double nightlyRate) =>
@@ -652,12 +658,12 @@ class ApprovedProperty {
       );
 
   Map<String, dynamic> toJson() => {
-    'property_code': propertyCode,
-    'property_name': propertyName,
-    'city': city,
-    'negotiated_rate_plan': negotiatedRatePlan,
-    'starting_rate': startingRate,
-  };
+        'property_code': propertyCode,
+        'property_name': propertyName,
+        'city': city,
+        'negotiated_rate_plan': negotiatedRatePlan,
+        'starting_rate': startingRate,
+      };
 }
 
 class CostCenter {
@@ -668,16 +674,16 @@ class CostCenter {
   const CostCenter({required this.code, required this.name, this.department});
 
   factory CostCenter.fromJson(Map<String, dynamic> json) => CostCenter(
-    code: json['code'] as String,
-    name: json['name'] as String,
-    department: json['department'] as String?,
-  );
+        code: json['code'] as String,
+        name: json['name'] as String,
+        department: json['department'] as String?,
+      );
 
   Map<String, dynamic> toJson() => {
-    'code': code,
-    'name': name,
-    'department': department,
-  };
+        'code': code,
+        'name': name,
+        'department': department,
+      };
 }
 
 class CompanyProfile {
@@ -729,18 +735,15 @@ class CompanyProfile {
         json['default_payment_method'] as String?,
       ),
       paymentTerms: json['payment_terms'] as String?,
-      travelPolicies:
-          (json['travel_policies'] as List<dynamic>?)
+      travelPolicies: (json['travel_policies'] as List<dynamic>?)
               ?.map((e) => TravelPolicy.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      approvedProperties:
-          (json['approved_properties'] as List<dynamic>?)
+      approvedProperties: (json['approved_properties'] as List<dynamic>?)
               ?.map((e) => ApprovedProperty.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      costCenters:
-          (json['cost_centers'] as List<dynamic>?)
+      costCenters: (json['cost_centers'] as List<dynamic>?)
               ?.map((e) => CostCenter.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
@@ -749,21 +752,22 @@ class CompanyProfile {
   }
 
   Map<String, dynamic> toJson() => {
-    'company_id': companyId,
-    'company_name': companyName,
-    'company_code': companyCode,
-    'billing_address': billingAddress.toJson(),
-    'billing_contact_name': billingContactName,
-    'billing_contact_email': billingContactEmail,
-    'billing_contact_phone': billingContactPhone,
-    'tax_id': taxId,
-    'default_payment_method': defaultPaymentMethod.apiValue,
-    'payment_terms': paymentTerms,
-    'travel_policies': travelPolicies.map((p) => p.toJson()).toList(),
-    'approved_properties': approvedProperties.map((p) => p.toJson()).toList(),
-    'cost_centers': costCenters.map((c) => c.toJson()).toList(),
-    'currency_code': currencyCode,
-  };
+        'company_id': companyId,
+        'company_name': companyName,
+        'company_code': companyCode,
+        'billing_address': billingAddress.toJson(),
+        'billing_contact_name': billingContactName,
+        'billing_contact_email': billingContactEmail,
+        'billing_contact_phone': billingContactPhone,
+        'tax_id': taxId,
+        'default_payment_method': defaultPaymentMethod.apiValue,
+        'payment_terms': paymentTerms,
+        'travel_policies': travelPolicies.map((p) => p.toJson()).toList(),
+        'approved_properties':
+            approvedProperties.map((p) => p.toJson()).toList(),
+        'cost_centers': costCenters.map((c) => c.toJson()).toList(),
+        'currency_code': currencyCode,
+      };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -792,15 +796,15 @@ class CorporateSearchRequest {
   });
 
   Map<String, dynamic> toJson() => {
-    'destination': destination,
-    'property_code': propertyCode,
-    'arrival_date': _dateStr(arrivalDate),
-    'departure_date': _dateStr(departureDate),
-    'number_of_rooms': numberOfRooms,
-    'number_of_guests': numberOfGuests,
-    'traveler_id': travelerId,
-    'company_code': companyCode,
-  };
+        'destination': destination,
+        'property_code': propertyCode,
+        'arrival_date': _dateStr(arrivalDate),
+        'departure_date': _dateStr(departureDate),
+        'number_of_rooms': numberOfRooms,
+        'number_of_guests': numberOfGuests,
+        'traveler_id': travelerId,
+        'company_code': companyCode,
+      };
 }
 
 /// Aggregate search result combining a [CorporateRate] with policy compliance
@@ -841,15 +845,15 @@ class ReportSummary {
   });
 
   factory ReportSummary.fromJson(Map<String, dynamic> json) => ReportSummary(
-    totalBookings: (json['total_bookings'] as num?)?.toInt() ?? 0,
-    totalRoomNights: (json['total_room_nights'] as num?)?.toInt() ?? 0,
-    totalSpend: (json['total_spend'] as num?)?.toDouble() ?? 0,
-    averageRate: (json['average_rate'] as num?)?.toDouble() ?? 0,
-    totalSavings: (json['total_savings'] as num?)?.toDouble() ?? 0,
-    policyComplianceRate:
-        (json['policy_compliance_rate'] as num?)?.toDouble() ?? 0,
-    currencyCode: json['currency_code'] as String? ?? 'USD',
-  );
+        totalBookings: (json['total_bookings'] as num?)?.toInt() ?? 0,
+        totalRoomNights: (json['total_room_nights'] as num?)?.toInt() ?? 0,
+        totalSpend: (json['total_spend'] as num?)?.toDouble() ?? 0,
+        averageRate: (json['average_rate'] as num?)?.toDouble() ?? 0,
+        totalSavings: (json['total_savings'] as num?)?.toDouble() ?? 0,
+        policyComplianceRate:
+            (json['policy_compliance_rate'] as num?)?.toDouble() ?? 0,
+        currencyCode: json['currency_code'] as String? ?? 'USD',
+      );
 }
 
 class ReportByProperty {
@@ -919,11 +923,11 @@ class ReportByMonth {
   });
 
   factory ReportByMonth.fromJson(Map<String, dynamic> json) => ReportByMonth(
-    month: json['month'] as String,
-    bookingCount: (json['booking_count'] as num?)?.toInt() ?? 0,
-    totalSpend: (json['total_spend'] as num?)?.toDouble() ?? 0,
-    totalSavings: (json['total_savings'] as num?)?.toDouble() ?? 0,
-  );
+        month: json['month'] as String,
+        bookingCount: (json['booking_count'] as num?)?.toInt() ?? 0,
+        totalSpend: (json['total_spend'] as num?)?.toDouble() ?? 0,
+        totalSavings: (json['total_savings'] as num?)?.toDouble() ?? 0,
+      );
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -946,14 +950,13 @@ class Announcement {
   });
 
   factory Announcement.fromJson(Map<String, dynamic> json) => Announcement(
-    id: json['id'] as String,
-    title: json['title'] as String,
-    body: json['body'] as String? ?? '',
-    publishedAt:
-        DateTime.tryParse(json['published_at'] as String? ?? '') ??
-        DateTime.now(),
-    category: json['category'] as String?,
-  );
+        id: json['id'] as String,
+        title: json['title'] as String,
+        body: json['body'] as String? ?? '',
+        publishedAt: DateTime.tryParse(json['published_at'] as String? ?? '') ??
+            DateTime.now(),
+        category: json['category'] as String?,
+      );
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -982,14 +985,13 @@ class CreditMethod {
   });
 
   factory CreditMethod.fromJson(Map<String, dynamic> json) => CreditMethod(
-    id: json['id'] as String,
-    label: json['label'] as String? ?? '',
-    paymentMethodId: json['payment_method_id'] as String?,
-    approval: json['approval'] as String? ?? 'PENDING',
-    creditLimit:
-        double.tryParse(json['credit_limit'] as String? ?? '') ??
-        (json['credit_limit'] as num?)?.toDouble(),
-  );
+        id: json['id'] as String,
+        label: json['label'] as String? ?? '',
+        paymentMethodId: json['payment_method_id'] as String?,
+        approval: json['approval'] as String? ?? 'PENDING',
+        creditLimit: double.tryParse(json['credit_limit'] as String? ?? '') ??
+            (json['credit_limit'] as num?)?.toDouble(),
+      );
 }
 
 /// A company the signed-in traveler is bound to (`pms.company_users` row) —
@@ -1008,9 +1010,9 @@ class CompanyBinding {
   });
 
   factory CompanyBinding.fromJson(Map<String, dynamic> json) => CompanyBinding(
-    companyProfileId: json['company_profile_id'] as String,
-    companyName: json['company_name'] as String? ?? '',
-    roleAtCompany: json['role_at_company'] as String? ?? 'TRAVELER',
-    isDefault: json['is_default'] as bool? ?? false,
-  );
+        companyProfileId: json['company_profile_id'] as String,
+        companyName: json['company_name'] as String? ?? '',
+        roleAtCompany: json['role_at_company'] as String? ?? 'TRAVELER',
+        isDefault: json['is_default'] as bool? ?? false,
+      );
 }

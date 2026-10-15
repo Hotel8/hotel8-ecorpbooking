@@ -103,25 +103,23 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                       ),
                     _InfoRow(
                       label: 'City',
-                      value:
-                          [
-                                profile.billingAddress.city,
-                                profile.billingAddress.state,
-                              ]
-                              .whereType<String>()
-                              .where((s) => s.isNotEmpty)
-                              .join(', '),
+                      value: [
+                        profile.billingAddress.city,
+                        profile.billingAddress.state,
+                      ]
+                          .whereType<String>()
+                          .where((s) => s.isNotEmpty)
+                          .join(', '),
                     ),
                     _InfoRow(
                       label: 'Postal / Country',
-                      value:
-                          [
-                                profile.billingAddress.postalCode,
-                                profile.billingAddress.country,
-                              ]
-                              .whereType<String>()
-                              .where((s) => s.isNotEmpty)
-                              .join(', '),
+                      value: [
+                        profile.billingAddress.postalCode,
+                        profile.billingAddress.country,
+                      ]
+                          .whereType<String>()
+                          .where((s) => s.isNotEmpty)
+                          .join(', '),
                     ),
                     if (profile.billingContactName != null)
                       _InfoRow(
@@ -162,9 +160,8 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                     ),
                     _InfoRow(
                       label: 'Bill-to-Company',
-                      value: widget.company.billToCompanyApproved
-                          ? 'Yes'
-                          : 'No',
+                      value:
+                          widget.company.billToCompanyApproved ? 'Yes' : 'No',
                     ),
                     if (widget.company.creditLimit != null)
                       _InfoRow(
@@ -185,8 +182,8 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                   children: profile.travelPolicies.isEmpty
                       ? [const Text('No travel policies configured.')]
                       : profile.travelPolicies
-                            .map((p) => _PolicyTile(policy: p))
-                            .toList(),
+                          .map((p) => _PolicyTile(policy: p))
+                          .toList(),
                 ),
                 const SizedBox(height: 16),
 
@@ -219,8 +216,8 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                   children: profile.costCenters.isEmpty
                       ? [const Text('No cost centers configured.')]
                       : profile.costCenters
-                            .map((c) => _CostCenterTile(costCenter: c))
-                            .toList(),
+                          .map((c) => _CostCenterTile(costCenter: c))
+                          .toList(),
                 ),
                 const SizedBox(height: 24),
               ],
@@ -436,13 +433,17 @@ class _PolicyBadge extends StatelessWidget {
       children: [
         Text(
           label,
-          style: Theme.of(context).textTheme.bodySmall
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
               ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
         ),
         const SizedBox(width: 4),
         Text(
           value,
-          style: Theme.of(context).textTheme.bodySmall
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
               ?.copyWith(fontWeight: FontWeight.w600),
         ),
       ],

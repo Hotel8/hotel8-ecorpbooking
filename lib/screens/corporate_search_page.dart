@@ -107,8 +107,8 @@ class _CorporateSearchPageState extends State<CorporateSearchPage> {
                 Text(
                   '${_allResults?.length ?? 0} corporate rates',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
                 ),
               ],
             ),
@@ -814,7 +814,8 @@ class _BookingSheetState extends State<_BookingSheet> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        widget.result.policyViolationReason ?? 'This booking is out of policy and may require manager approval.',
+                        widget.result.policyViolationReason ??
+                            'This booking is out of policy and may require manager approval.',
                         style: theme.textTheme.bodySmall,
                       ),
                     ),
