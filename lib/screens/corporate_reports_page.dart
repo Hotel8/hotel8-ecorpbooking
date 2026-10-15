@@ -71,11 +71,9 @@ class _CorporateReportsPageState extends State<CorporateReportsPage> {
 
   Future<void> _pickDateRange() async {
     final now = DateTime.now();
-    final initial = _dateRange ??
-        DateTimeRange(
-          start: now.subtract(const Duration(days: 90)),
-          end: now,
-        );
+    final initial =
+        _dateRange ??
+        DateTimeRange(start: now.subtract(const Duration(days: 90)), end: now);
     final range = await showDateRangePicker(
       context: context,
       firstDate: now.subtract(const Duration(days: 365 * 2)),
@@ -97,7 +95,8 @@ class _CorporateReportsPageState extends State<CorporateReportsPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-              content: Text('Report exported. Check your downloads.')),
+            content: Text('Report exported. Check your downloads.'),
+          ),
         );
       }
     } finally {
@@ -121,7 +120,8 @@ class _CorporateReportsPageState extends State<CorporateReportsPage> {
                 ? const SizedBox(
                     width: 20,
                     height: 20,
-                    child: CircularProgressIndicator(strokeWidth: 2))
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
                 : const Icon(Icons.download),
             tooltip: 'Export',
             onPressed: _exporting ? null : _export,
@@ -148,7 +148,8 @@ class _CorporateReportsPageState extends State<CorporateReportsPage> {
                   child: Text(
                     '${DateFormat('MMM d, y').format(_dateRange!.start)} — ${DateFormat('MMM d, y').format(_dateRange!.end)}',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: Theme.of(context).colorScheme.primary),
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
               ),
@@ -161,8 +162,9 @@ class _CorporateReportsPageState extends State<CorporateReportsPage> {
                 }
                 if (snapshot.hasError)
                   return _ErrorCard(
-                      message: _errMsg(snapshot.error),
-                      onRetry: () => setState(_loadAll));
+                    message: _errMsg(snapshot.error),
+                    onRetry: () => setState(_loadAll),
+                  );
                 final summary = snapshot.data ?? const ReportSummary();
                 return _SummaryGrid(summary: summary);
               },
@@ -179,8 +181,9 @@ class _CorporateReportsPageState extends State<CorporateReportsPage> {
                 }
                 if (snapshot.hasError)
                   return _ErrorCard(
-                      message: _errMsg(snapshot.error),
-                      onRetry: () => setState(_loadAll));
+                    message: _errMsg(snapshot.error),
+                    onRetry: () => setState(_loadAll),
+                  );
                 final list = snapshot.data ?? const [];
                 if (list.isEmpty) return const _EmptySection();
                 return _PropertyTable(rows: list);
@@ -198,8 +201,9 @@ class _CorporateReportsPageState extends State<CorporateReportsPage> {
                 }
                 if (snapshot.hasError)
                   return _ErrorCard(
-                      message: _errMsg(snapshot.error),
-                      onRetry: () => setState(_loadAll));
+                    message: _errMsg(snapshot.error),
+                    onRetry: () => setState(_loadAll),
+                  );
                 final list = snapshot.data ?? const [];
                 if (list.isEmpty) return const _EmptySection();
                 return _TravelerTable(rows: list);
@@ -217,8 +221,9 @@ class _CorporateReportsPageState extends State<CorporateReportsPage> {
                 }
                 if (snapshot.hasError)
                   return _ErrorCard(
-                      message: _errMsg(snapshot.error),
-                      onRetry: () => setState(_loadAll));
+                    message: _errMsg(snapshot.error),
+                    onRetry: () => setState(_loadAll),
+                  );
                 final list = snapshot.data ?? const [];
                 if (list.isEmpty) return const _EmptySection();
                 return _MonthTable(rows: list);
@@ -262,7 +267,9 @@ class _SummaryGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final fmt = NumberFormat.currency(
-        name: summary.currencyCode, symbol: _symbolFor(summary.currencyCode));
+      name: summary.currencyCode,
+      symbol: _symbolFor(summary.currencyCode),
+    );
     return GridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -339,19 +346,21 @@ class _StatCard extends StatelessWidget {
                 Icon(icon, size: 20, color: color),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(label,
-                      style: Theme.of(context).textTheme.bodySmall,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis),
+                  child: Text(
+                    label,
+                    style: Theme.of(context).textTheme.bodySmall,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),
             const Spacer(),
-            Text(value,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(fontWeight: FontWeight.bold)),
+            Text(
+              value,
+              style: Theme.of(context).textTheme.titleLarge
+                  ?.copyWith(fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       ),
@@ -371,11 +380,11 @@ class _SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
-      child: Text(title,
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium
-              ?.copyWith(fontWeight: FontWeight.w600)),
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.titleMedium
+            ?.copyWith(fontWeight: FontWeight.w600),
+      ),
     );
   }
 }
@@ -395,15 +404,17 @@ class _PropertyTable extends StatelessWidget {
             cells: ['Property', 'Bookings', 'Nights', 'Spend', 'Savings'],
           ),
           const Divider(height: 1),
-          ...rows.map((r) => _TableRow(
-                cells: [
-                  r.propertyName,
-                  '${r.bookingCount}',
-                  '${r.roomNights}',
-                  fmt.format(r.totalSpend),
-                  fmt.format(r.totalSavings),
-                ],
-              )),
+          ...rows.map(
+            (r) => _TableRow(
+              cells: [
+                r.propertyName,
+                '${r.bookingCount}',
+                '${r.roomNights}',
+                fmt.format(r.totalSpend),
+                fmt.format(r.totalSavings),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -425,14 +436,16 @@ class _TravelerTable extends StatelessWidget {
             cells: ['Traveler', 'Bookings', 'Spend', 'Savings'],
           ),
           const Divider(height: 1),
-          ...rows.map((r) => _TableRow(
-                cells: [
-                  r.travelerName,
-                  '${r.bookingCount}',
-                  fmt.format(r.totalSpend),
-                  fmt.format(r.totalSavings),
-                ],
-              )),
+          ...rows.map(
+            (r) => _TableRow(
+              cells: [
+                r.travelerName,
+                '${r.bookingCount}',
+                fmt.format(r.totalSpend),
+                fmt.format(r.totalSavings),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -454,14 +467,16 @@ class _MonthTable extends StatelessWidget {
             cells: ['Month', 'Bookings', 'Spend', 'Savings'],
           ),
           const Divider(height: 1),
-          ...rows.map((r) => _TableRow(
-                cells: [
-                  r.month,
-                  '${r.bookingCount}',
-                  fmt.format(r.totalSpend),
-                  fmt.format(r.totalSavings),
-                ],
-              )),
+          ...rows.map(
+            (r) => _TableRow(
+              cells: [
+                r.month,
+                '${r.bookingCount}',
+                fmt.format(r.totalSpend),
+                fmt.format(r.totalSavings),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -483,8 +498,10 @@ class _TableRow extends StatelessWidget {
             Expanded(
               flex: i == 0 ? 2 : 1,
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 10,
+                ),
                 child: Text(
                   cells[i],
                   style: isHeader
@@ -519,12 +536,17 @@ class _ErrorCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          Icon(Icons.error_outline,
-              size: 40, color: Theme.of(context).colorScheme.error),
+          Icon(
+            Icons.error_outline,
+            size: 40,
+            color: Theme.of(context).colorScheme.error,
+          ),
           const SizedBox(height: 8),
-          Text(message,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodySmall),
+          Text(
+            message,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
           const SizedBox(height: 12),
           OutlinedButton(onPressed: onRetry, child: const Text('Retry')),
         ],
@@ -542,11 +564,16 @@ class _EmptySection extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       child: Column(
         children: [
-          Icon(Icons.bar_chart,
-              size: 40, color: Theme.of(context).colorScheme.onSurfaceVariant),
+          Icon(
+            Icons.bar_chart,
+            size: 40,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
           const SizedBox(height: 8),
-          Text('No data for this period',
-              style: Theme.of(context).textTheme.bodyMedium),
+          Text(
+            'No data for this period',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
         ],
       ),
     );

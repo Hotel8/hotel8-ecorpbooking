@@ -80,7 +80,7 @@ class _HcorpRootState extends State<HcorpRoot> {
   Widget build(BuildContext context) {
     if (_bootstrapError != null) {
       return Scaffold(
-        body: Center(child: Text('eCorpBooking unavailable: \$_bootstrapError')),
+        body: Center(child: Text('eCorpBooking unavailable: $_bootstrapError')),
       );
     }
     final client = _client;
@@ -94,11 +94,7 @@ class _HcorpRootState extends State<HcorpRoot> {
 /// Shell with a bottom navigation bar: Dashboard, Search, My Trips,
 /// Reports, Profile. Shown after the corporate user has logged in.
 class HcorpShell extends StatefulWidget {
-  const HcorpShell({
-    super.key,
-    required this.client,
-    required this.company,
-  });
+  const HcorpShell({super.key, required this.client, required this.company});
 
   final BffClient client;
   final Company company;
@@ -113,23 +109,11 @@ class _HcorpShellState extends State<HcorpShell> {
   @override
   Widget build(BuildContext context) {
     final pages = <Widget>[
-      CorporateDashboardPage(
-        client: widget.client,
-        company: widget.company,
-      ),
+      CorporateDashboardPage(client: widget.client, company: widget.company),
       _SearchTab(client: widget.client, company: widget.company),
-      MyTripsPage(
-        client: widget.client,
-        company: widget.company,
-      ),
-      CorporateReportsPage(
-        client: widget.client,
-        company: widget.company,
-      ),
-      CompanyProfilePage(
-        client: widget.client,
-        company: widget.company,
-      ),
+      MyTripsPage(client: widget.client, company: widget.company),
+      CorporateReportsPage(client: widget.client, company: widget.company),
+      CompanyProfilePage(client: widget.client, company: widget.company),
     ];
 
     return Scaffold(
@@ -212,7 +196,8 @@ class _SearchTabState extends State<_SearchTab> {
   }
 
   Future<void> _pickCheckOut() async {
-    final first = _checkIn?.add(const Duration(days: 1)) ??
+    final first =
+        _checkIn?.add(const Duration(days: 1)) ??
         DateTime.now().add(const Duration(days: 1));
     final date = await showDatePicker(
       context: context,
@@ -228,7 +213,8 @@ class _SearchTabState extends State<_SearchTab> {
     if (_checkIn == null || _checkOut == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content: Text('Please select check-in and check-out dates.')),
+          content: Text('Please select check-in and check-out dates.'),
+        ),
       );
       return;
     }
@@ -359,14 +345,18 @@ class _SearchTabState extends State<_SearchTab> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.primaryContainer
-                        .withValues(alpha: 0.3),
+                    color: theme.colorScheme.primaryContainer.withValues(
+                      alpha: 0.3,
+                    ),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.business_center,
-                          size: 18, color: theme.colorScheme.primary),
+                      Icon(
+                        Icons.business_center,
+                        size: 18,
+                        color: theme.colorScheme.primary,
+                      ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(

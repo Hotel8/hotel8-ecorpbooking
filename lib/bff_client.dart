@@ -19,9 +19,9 @@ import 'models.dart';
 
 class BffClient {
   BffClient({String? baseUrl, String? propertyId, http.Client? httpClient})
-      : _baseUrl = baseUrl ?? _resolveBaseUrl(),
-        _propertyId = propertyId ?? '',
-        _httpClient = httpClient ?? http.Client();
+    : _baseUrl = baseUrl ?? _resolveBaseUrl(),
+      _propertyId = propertyId ?? '',
+      _httpClient = httpClient ?? http.Client();
 
   final String _baseUrl;
 
@@ -35,10 +35,7 @@ class BffClient {
   /// For local development fall back to the `HCORP_BFF_BASE_URL` env var or
   /// `http://localhost:8080`.
   static String _resolveBaseUrl() {
-    const env = String.fromEnvironment(
-      'HCORP_BFF_BASE_URL',
-      defaultValue: '',
-    );
+    const env = String.fromEnvironment('HCORP_BFF_BASE_URL', defaultValue: '');
     if (env.isNotEmpty) return env;
 
     if (kIsWeb) {
@@ -51,8 +48,10 @@ class BffClient {
   String _path(String p) => '$_baseUrl$p';
 
   Future<Map<String, dynamic>> _getJson(String path) async {
-    final resp =
-        await _httpClient.get(Uri.parse(_path(path)), headers: _headers());
+    final resp = await _httpClient.get(
+      Uri.parse(_path(path)),
+      headers: _headers(),
+    );
     return _handle(resp);
   }
 
@@ -81,15 +80,17 @@ class BffClient {
   }
 
   Future<Map<String, dynamic>> _deleteJson(String path) async {
-    final resp =
-        await _httpClient.delete(Uri.parse(_path(path)), headers: _headers());
+    final resp = await _httpClient.delete(
+      Uri.parse(_path(path)),
+      headers: _headers(),
+    );
     return _handle(resp);
   }
 
   Map<String, String> _headers() => {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      };
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  };
 
   Future<Map<String, dynamic>> _handle(http.Response resp) async {
     final body = resp.body.isEmpty ? '{}' : resp.body;
@@ -137,10 +138,7 @@ class BffClient {
     // SSO redirects through the BFF → Auth enterprise connection for the
     // company's IdP; the round trip completes at /auth/callback with the
     // session cookie set — no direct response body.
-    await _postJson(
-      '/proxy/auth/v1/sso-start',
-      {'company_code': companyCode},
-    );
+    await _postJson('/proxy/auth/v1/sso-start', {'company_code': companyCode});
   }
 
   /// `GET /proxy/hotel8-pms/v1/properties/{pid}/profiles?profile_type=COMPANY&q=`
@@ -183,11 +181,7 @@ class BffClient {
     await _putJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId'
       '/companies/$companyId/admin-provisioning',
-      {
-        'email': email,
-        'first_name': firstName,
-        'last_name': lastName,
-      },
+      {'email': email, 'first_name': firstName, 'last_name': lastName},
     );
   }
 
@@ -262,24 +256,26 @@ class BffClient {
       final plans = (map['rate_plans'] as List<dynamic>?) ?? const [];
       for (final rp in plans) {
         final plan = rp as Map<String, dynamic>;
-        results.add(SearchResult(
-          rate: CorporateRate(
-            id: plan['rate_plan_id'] as String,
-            ratePlanCode: plan['rate_plan_code'] as String,
-            ratePlanName: plan['rate_plan_name'] as String? ?? '',
-            propertyCode: map['room_type_code'] as String? ?? '',
-            propertyName: map['room_type_name'] as String? ?? '',
-            propertyCity: '',
-            roomTypeCode: map['room_type_code'] as String? ?? '',
-            roomTypeName: map['room_type_name'] as String? ?? '',
-            corporateRate:
-                double.tryParse(plan['rate_amount'] as String? ?? '') ?? 0.0,
-            publicRate:
-                double.tryParse(plan['rate_amount'] as String? ?? '') ?? 0.0,
-            currencyCode: plan['currency_code'] as String? ?? 'USD',
+        results.add(
+          SearchResult(
+            rate: CorporateRate(
+              id: plan['rate_plan_id'] as String,
+              ratePlanCode: plan['rate_plan_code'] as String,
+              ratePlanName: plan['rate_plan_name'] as String? ?? '',
+              propertyCode: map['room_type_code'] as String? ?? '',
+              propertyName: map['room_type_name'] as String? ?? '',
+              propertyCity: '',
+              roomTypeCode: map['room_type_code'] as String? ?? '',
+              roomTypeName: map['room_type_name'] as String? ?? '',
+              corporateRate:
+                  double.tryParse(plan['rate_amount'] as String? ?? '') ?? 0.0,
+              publicRate:
+                  double.tryParse(plan['rate_amount'] as String? ?? '') ?? 0.0,
+              currencyCode: plan['currency_code'] as String? ?? 'USD',
+            ),
+            policyCompliant: true,
           ),
-          policyCompliant: true,
-        ));
+        );
       }
     }
     return results;
@@ -315,7 +311,8 @@ class BffClient {
       '/reservations?guest_profile_id=${Uri.encodeComponent(companyId)}'
       '&${qs.join('&')}',
     );
-    final list = json['reservations'] as List<dynamic>? ??
+    final list =
+        json['reservations'] as List<dynamic>? ??
         json['bookings'] as List<dynamic>? ??
         json['data'] as List<dynamic>? ??
         const [];
@@ -357,7 +354,8 @@ class BffClient {
     final json = await _getJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId/profiles',
     );
-    final list = json['travelers'] as List<dynamic>? ??
+    final list =
+        json['travelers'] as List<dynamic>? ??
         json['data'] as List<dynamic>? ??
         const [];
     return list
@@ -375,10 +373,7 @@ class BffClient {
   }
 
   /// `PUT` rides the PMS profile update (preferences/loyalty routes).
-  Future<Traveler> updateTraveler(
-    String companyId,
-    Traveler traveler,
-  ) async {
+  Future<Traveler> updateTraveler(String companyId, Traveler traveler) async {
     final json = await _putJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId'
       '/profiles/${traveler.id}',
@@ -404,7 +399,8 @@ class BffClient {
     final json = await _getJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId/profiles/\$companyId/policies',
     );
-    final list = json['policies'] as List<dynamic>? ??
+    final list =
+        json['policies'] as List<dynamic>? ??
         json['data'] as List<dynamic>? ??
         const [];
     return list
@@ -434,7 +430,8 @@ class BffClient {
     final json = await _getJson(
       '/proxy/post/v1/messages?category=ANNOUNCEMENT',
     );
-    final list = json['announcements'] as List<dynamic>? ??
+    final list =
+        json['announcements'] as List<dynamic>? ??
         json['data'] as List<dynamic>? ??
         const [];
     return list
@@ -482,7 +479,9 @@ class BffClient {
 
   /// `GET .../companies/by-traveler/{profile_id}` — companies the signed-in
   /// traveler is bound to (multi-company session switcher).
-  Future<List<CompanyBinding>> getCompanyBindings(String travelerProfileId) async {
+  Future<List<CompanyBinding>> getCompanyBindings(
+    String travelerProfileId,
+  ) async {
     final json = await _getJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId'
       '/companies/by-traveler/$travelerProfileId',
@@ -516,7 +515,8 @@ class BffClient {
     final json = await _getJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId/reports/channel-performance\$query',
     );
-    final list = json['properties'] as List<dynamic>? ??
+    final list =
+        json['properties'] as List<dynamic>? ??
         json['data'] as List<dynamic>? ??
         const [];
     return list
@@ -537,7 +537,8 @@ class BffClient {
     final json = await _getJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId/reports/guest-history\$query',
     );
-    final list = json['travelers'] as List<dynamic>? ??
+    final list =
+        json['travelers'] as List<dynamic>? ??
         json['data'] as List<dynamic>? ??
         const [];
     return list
@@ -558,7 +559,8 @@ class BffClient {
     final json = await _getJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId/reports/occupancy\$query',
     );
-    final list = json['months'] as List<dynamic>? ??
+    final list =
+        json['months'] as List<dynamic>? ??
         json['data'] as List<dynamic>? ??
         const [];
     return list

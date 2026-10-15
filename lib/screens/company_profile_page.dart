@@ -77,7 +77,9 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                     _InfoRow(label: 'Company Code', value: profile.companyCode),
                     if (widget.company.industry != null)
                       _InfoRow(
-                          label: 'Industry', value: widget.company.industry!),
+                        label: 'Industry',
+                        value: widget.company.industry!,
+                      ),
                     if (profile.taxId != null)
                       _InfoRow(label: 'Tax ID', value: profile.taxId!),
                   ],
@@ -91,41 +93,51 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                   children: [
                     if (profile.billingAddress.addressLine1 != null)
                       _InfoRow(
-                          label: 'Address',
-                          value: profile.billingAddress.addressLine1!),
+                        label: 'Address',
+                        value: profile.billingAddress.addressLine1!,
+                      ),
                     if (profile.billingAddress.addressLine2 != null)
                       _InfoRow(
-                          label: 'Address 2',
-                          value: profile.billingAddress.addressLine2!),
+                        label: 'Address 2',
+                        value: profile.billingAddress.addressLine2!,
+                      ),
                     _InfoRow(
                       label: 'City',
-                      value: [
-                        profile.billingAddress.city,
-                        profile.billingAddress.state,
-                      ]
-                          .whereType<String>()
-                          .where((s) => s.isNotEmpty)
-                          .join(', '),
+                      value:
+                          [
+                                profile.billingAddress.city,
+                                profile.billingAddress.state,
+                              ]
+                              .whereType<String>()
+                              .where((s) => s.isNotEmpty)
+                              .join(', '),
                     ),
                     _InfoRow(
                       label: 'Postal / Country',
-                      value: [
-                        profile.billingAddress.postalCode,
-                        profile.billingAddress.country,
-                      ]
-                          .whereType<String>()
-                          .where((s) => s.isNotEmpty)
-                          .join(', '),
+                      value:
+                          [
+                                profile.billingAddress.postalCode,
+                                profile.billingAddress.country,
+                              ]
+                              .whereType<String>()
+                              .where((s) => s.isNotEmpty)
+                              .join(', '),
                     ),
                     if (profile.billingContactName != null)
                       _InfoRow(
-                          label: 'Contact', value: profile.billingContactName!),
+                        label: 'Contact',
+                        value: profile.billingContactName!,
+                      ),
                     if (profile.billingContactEmail != null)
                       _InfoRow(
-                          label: 'Email', value: profile.billingContactEmail!),
+                        label: 'Email',
+                        value: profile.billingContactEmail!,
+                      ),
                     if (profile.billingContactPhone != null)
                       _InfoRow(
-                          label: 'Phone', value: profile.billingContactPhone!),
+                        label: 'Phone',
+                        value: profile.billingContactPhone!,
+                      ),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -136,27 +148,31 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                   icon: Icons.payments_outlined,
                   children: [
                     _InfoRow(
-                        label: 'Default Payment',
-                        value: profile.defaultPaymentMethod.label),
+                      label: 'Default Payment',
+                      value: profile.defaultPaymentMethod.label,
+                    ),
                     if (profile.paymentTerms != null)
                       _InfoRow(
-                          label: 'Payment Terms', value: profile.paymentTerms!),
+                        label: 'Payment Terms',
+                        value: profile.paymentTerms!,
+                      ),
                     _InfoRow(
                       label: 'Post-Pay Approved',
                       value: widget.company.postPayApproved ? 'Yes' : 'No',
                     ),
                     _InfoRow(
                       label: 'Bill-to-Company',
-                      value:
-                          widget.company.billToCompanyApproved ? 'Yes' : 'No',
+                      value: widget.company.billToCompanyApproved
+                          ? 'Yes'
+                          : 'No',
                     ),
                     if (widget.company.creditLimit != null)
                       _InfoRow(
                         label: 'Credit Limit',
                         value: NumberFormat.currency(
-                                name: profile.currencyCode,
-                                symbol: _symbolFor(profile.currencyCode))
-                            .format(widget.company.creditLimit!),
+                          name: profile.currencyCode,
+                          symbol: _symbolFor(profile.currencyCode),
+                        ).format(widget.company.creditLimit!),
                       ),
                   ],
                 ),
@@ -169,8 +185,8 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                   children: profile.travelPolicies.isEmpty
                       ? [const Text('No travel policies configured.')]
                       : profile.travelPolicies
-                          .map((p) => _PolicyTile(policy: p))
-                          .toList(),
+                            .map((p) => _PolicyTile(policy: p))
+                            .toList(),
                 ),
                 const SizedBox(height: 16),
 
@@ -181,7 +197,8 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                   children: profile.approvedProperties.isEmpty
                       ? [
                           const Text(
-                              'No approved property restrictions — all properties allowed.')
+                            'No approved property restrictions — all properties allowed.',
+                          ),
                         ]
                       : [
                           Wrap(
@@ -202,8 +219,8 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                   children: profile.costCenters.isEmpty
                       ? [const Text('No cost centers configured.')]
                       : profile.costCenters
-                          .map((c) => _CostCenterTile(costCenter: c))
-                          .toList(),
+                            .map((c) => _CostCenterTile(costCenter: c))
+                            .toList(),
                 ),
                 const SizedBox(height: 24),
               ],
@@ -243,9 +260,12 @@ class _SectionCard extends StatelessWidget {
               children: [
                 Icon(icon, size: 20, color: theme.colorScheme.primary),
                 const SizedBox(width: 8),
-                Text(title,
-                    style: theme.textTheme.titleMedium
-                        ?.copyWith(fontWeight: FontWeight.w600)),
+                Text(
+                  title,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 12),
@@ -273,14 +293,20 @@ class _InfoRow extends StatelessWidget {
         children: [
           SizedBox(
             width: 130,
-            child: Text(label,
-                style: theme.textTheme.bodyMedium
-                    ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+            child: Text(
+              label,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: theme.textTheme.bodyMedium
-                    ?.copyWith(fontWeight: FontWeight.w500)),
+            child: Text(
+              value,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
         ],
       ),
@@ -309,7 +335,9 @@ class _PolicyTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final fmt = NumberFormat.currency(
-        name: policy.currencyCode, symbol: _symbolFor(policy.currencyCode));
+      name: policy.currencyCode,
+      symbol: _symbolFor(policy.currencyCode),
+    );
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
@@ -322,22 +350,30 @@ class _PolicyTile extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(policy.policyName,
-                  style: theme.textTheme.titleSmall
-                      ?.copyWith(fontWeight: FontWeight.w600)),
+              Text(
+                policy.policyName,
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               const Spacer(),
               if (policy.isActive)
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.tertiaryContainer,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text('Active',
-                      style: TextStyle(
-                          fontSize: 10,
-                          color: theme.colorScheme.onTertiaryContainer)),
+                  child: Text(
+                    'Active',
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: theme.colorScheme.onTertiaryContainer,
+                    ),
+                  ),
                 )
               else
                 Text('(inactive)', style: theme.textTheme.bodySmall),
@@ -377,8 +413,10 @@ class _PolicyTile extends StatelessWidget {
           ),
           if (policy.approvedCities.isNotEmpty) ...[
             const SizedBox(height: 8),
-            Text('Approved cities: ${policy.approvedCities.join(', ')}',
-                style: theme.textTheme.bodySmall),
+            Text(
+              'Approved cities: ${policy.approvedCities.join(', ')}',
+              style: theme.textTheme.bodySmall,
+            ),
           ],
         ],
       ),
@@ -396,15 +434,17 @@ class _PolicyBadge extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(label,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant)),
+        Text(
+          label,
+          style: Theme.of(context).textTheme.bodySmall
+              ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        ),
         const SizedBox(width: 4),
-        Text(value,
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall
-                ?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          value,
+          style: Theme.of(context).textTheme.bodySmall
+              ?.copyWith(fontWeight: FontWeight.w600),
+        ),
       ],
     );
   }
@@ -430,23 +470,35 @@ class _PropertyChip extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.hotel,
-                  size: 16, color: theme.colorScheme.onSecondaryContainer),
+              Icon(
+                Icons.hotel,
+                size: 16,
+                color: theme.colorScheme.onSecondaryContainer,
+              ),
               const SizedBox(width: 4),
-              Text(property.propertyName,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: theme.colorScheme.onSecondaryContainer)),
+              Text(
+                property.propertyName,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: theme.colorScheme.onSecondaryContainer,
+                ),
+              ),
             ],
           ),
-          Text(property.city,
-              style: theme.textTheme.bodySmall?.copyWith(
-                  fontSize: 11, color: theme.colorScheme.onSecondaryContainer)),
+          Text(
+            property.city,
+            style: theme.textTheme.bodySmall?.copyWith(
+              fontSize: 11,
+              color: theme.colorScheme.onSecondaryContainer,
+            ),
+          ),
           if (property.startingRate != null)
             Text(
               'From ${NumberFormat.currency(symbol: '\$').format(property.startingRate!)}',
               style: theme.textTheme.bodySmall?.copyWith(
-                  fontSize: 11, color: theme.colorScheme.onSecondaryContainer),
+                fontSize: 11,
+                color: theme.colorScheme.onSecondaryContainer,
+              ),
             ),
         ],
       ),
@@ -476,22 +528,30 @@ class _CostCenterTile extends StatelessWidget {
               color: theme.colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(costCenter.code,
-                style: theme.textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: theme.colorScheme.onPrimaryContainer)),
+            child: Text(
+              costCenter.code,
+              style: theme.textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: theme.colorScheme.onPrimaryContainer,
+              ),
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(costCenter.name,
-                    style: theme.textTheme.bodyMedium
-                        ?.copyWith(fontWeight: FontWeight.w500)),
+                Text(
+                  costCenter.name,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
                 if (costCenter.department != null)
-                  Text(costCenter.department!,
-                      style: theme.textTheme.bodySmall),
+                  Text(
+                    costCenter.department!,
+                    style: theme.textTheme.bodySmall,
+                  ),
               ],
             ),
           ),
@@ -515,15 +575,22 @@ class _ErrorView extends StatelessWidget {
     return ListView(
       children: [
         const SizedBox(height: 80),
-        Icon(Icons.error_outline,
-            size: 48, color: Theme.of(context).colorScheme.error),
+        Icon(
+          Icons.error_outline,
+          size: 48,
+          color: Theme.of(context).colorScheme.error,
+        ),
         const SizedBox(height: 16),
-        const Text('Unable to load company profile',
-            textAlign: TextAlign.center),
+        const Text(
+          'Unable to load company profile',
+          textAlign: TextAlign.center,
+        ),
         const SizedBox(height: 8),
-        Text(message,
-            style: Theme.of(context).textTheme.bodySmall,
-            textAlign: TextAlign.center),
+        Text(
+          message,
+          style: Theme.of(context).textTheme.bodySmall,
+          textAlign: TextAlign.center,
+        ),
         const SizedBox(height: 16),
         Center(
           child: FilledButton(onPressed: onRetry, child: const Text('Retry')),

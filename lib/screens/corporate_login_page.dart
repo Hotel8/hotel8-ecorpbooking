@@ -16,11 +16,7 @@ import '../bff_client.dart';
 import '../models.dart';
 
 class CorporateLoginPage extends StatefulWidget {
-  const CorporateLoginPage({
-    super.key,
-    required this.client,
-    this.companyCode,
-  });
+  const CorporateLoginPage({super.key, required this.client, this.companyCode});
 
   final BffClient client;
   final String? companyCode;
@@ -103,8 +99,7 @@ class _CorporateLoginPageState extends State<CorporateLoginPage> {
         // run — no org-wide pass-through.
         List<CompanyBinding> bindings = const [];
         try {
-          bindings = await widget.client
-              .getCompanyBindings(company.id);
+          bindings = await widget.client.getCompanyBindings(company.id);
         } on BffException {
           // Binding surface unreachable → the verified company stands.
         }
@@ -143,18 +138,15 @@ class _CorporateLoginPageState extends State<CorporateLoginPage> {
         if (!mounted) return;
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (_) => HcorpShell(
-              client: widget.client,
-              company: active,
-            ),
+            builder: (_) => HcorpShell(client: widget.client, company: active),
           ),
         );
       }
     } on BffException catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Login failed: ${e.message}')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Login failed: ${e.message}')));
       }
     } finally {
       if (mounted) setState(() => _loading = false);
@@ -172,7 +164,9 @@ class _CorporateLoginPageState extends State<CorporateLoginPage> {
       );
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Redirecting to your identity provider…')),
+          const SnackBar(
+            content: Text('Redirecting to your identity provider…'),
+          ),
         );
       }
     } on BffException catch (e) {
@@ -254,8 +248,9 @@ class _CorporateLoginPageState extends State<CorporateLoginPage> {
                                 height: 20,
                                 child: Padding(
                                   padding: EdgeInsets.all(8),
-                                  child:
-                                      CircularProgressIndicator(strokeWidth: 2),
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
                                 ),
                               )
                             : IconButton(
@@ -278,15 +273,20 @@ class _CorporateLoginPageState extends State<CorporateLoginPage> {
                       const SizedBox(height: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 10),
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
                         decoration: BoxDecoration(
                           color: theme.colorScheme.secondaryContainer,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(
                           children: [
-                            Icon(Icons.verified,
-                                size: 18, color: theme.colorScheme.primary),
+                            Icon(
+                              Icons.verified,
+                              size: 18,
+                              color: theme.colorScheme.primary,
+                            ),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
@@ -333,11 +333,14 @@ class _CorporateLoginPageState extends State<CorporateLoginPage> {
                         labelText: 'Password',
                         prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: IconButton(
-                          icon: Icon(_obscurePassword
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility_outlined),
+                          icon: Icon(
+                            _obscurePassword
+                                ? Icons.visibility_off_outlined
+                                : Icons.visibility_outlined,
+                          ),
                           onPressed: () => setState(
-                              () => _obscurePassword = !_obscurePassword),
+                            () => _obscurePassword = !_obscurePassword,
+                          ),
                         ),
                         border: const OutlineInputBorder(),
                       ),
@@ -379,9 +382,12 @@ class _CorporateLoginPageState extends State<CorporateLoginPage> {
                           const Expanded(child: Divider()),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Text('OR',
-                                style: theme.textTheme.bodySmall?.copyWith(
-                                    color: theme.colorScheme.onSurfaceVariant)),
+                            child: Text(
+                              'OR',
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: theme.colorScheme.onSurfaceVariant,
+                              ),
+                            ),
                           ),
                           const Expanded(child: Divider()),
                         ],
@@ -477,9 +483,8 @@ class _RequestAccessSheetState extends State<_RequestAccessSheet> {
     }
     if (mounted) {
       Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(message)));
     }
   }
 
@@ -498,14 +503,16 @@ class _RequestAccessSheetState extends State<_RequestAccessSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Request Corporate Access',
-                style: Theme.of(context).textTheme.headlineSmall),
+            Text(
+              'Request Corporate Access',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
             const SizedBox(height: 8),
             Text(
               'Tell us about your company and our hotel sales team will set up your corporate account.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
             const SizedBox(height: 24),
             TextFormField(
@@ -566,7 +573,10 @@ class _RequestAccessSheetState extends State<_RequestAccessSheet> {
                         width: 20,
                         height: 20,
                         child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white))
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
                     : const Text('Submit Request'),
               ),
             ),

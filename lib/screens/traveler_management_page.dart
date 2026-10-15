@@ -74,16 +74,20 @@ class _TravelerManagementPageState extends State<TravelerManagementPage> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Remove Traveler?'),
-        content: Text('Remove ${traveler.fullName} from the company roster? '
-            'They will no longer be able to book at corporate rates.'),
+        content: Text(
+          'Remove ${traveler.fullName} from the company roster? '
+          'They will no longer be able to book at corporate rates.',
+        ),
         actions: [
           TextButton(
-              onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('Cancel')),
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Cancel'),
+          ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
             style: FilledButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.error),
+              backgroundColor: Theme.of(context).colorScheme.error,
+            ),
             child: const Text('Remove'),
           ),
         ],
@@ -100,9 +104,9 @@ class _TravelerManagementPageState extends State<TravelerManagementPage> {
       }
     } on BffException catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Remove failed: ${e.message}')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Remove failed: ${e.message}')));
       }
     }
   }
@@ -156,16 +160,18 @@ class _TravelerManagementPageState extends State<TravelerManagementPage> {
                 var list = snapshot.data ?? const [];
                 if (_searchQuery.isNotEmpty) {
                   list = list
-                      .where((t) =>
-                          t.fullName
-                              .toLowerCase()
-                              .contains(_searchQuery.toLowerCase()) ||
-                          t.email
-                              .toLowerCase()
-                              .contains(_searchQuery.toLowerCase()) ||
-                          (t.department ?? '')
-                              .toLowerCase()
-                              .contains(_searchQuery.toLowerCase()))
+                      .where(
+                        (t) =>
+                            t.fullName.toLowerCase().contains(
+                              _searchQuery.toLowerCase(),
+                            ) ||
+                            t.email.toLowerCase().contains(
+                              _searchQuery.toLowerCase(),
+                            ) ||
+                            (t.department ?? '').toLowerCase().contains(
+                              _searchQuery.toLowerCase(),
+                            ),
+                      )
                       .toList();
                 }
                 if (list.isEmpty) {
@@ -219,8 +225,10 @@ class _TravelerTile extends StatelessWidget {
         ),
         title: Row(
           children: [
-            Text(traveler.fullName,
-                style: const TextStyle(fontWeight: FontWeight.w600)),
+            Text(
+              traveler.fullName,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
             const SizedBox(width: 8),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -238,11 +246,13 @@ class _TravelerTile extends StatelessWidget {
             ),
             if (!traveler.isActive) ...[
               const SizedBox(width: 4),
-              Text('(inactive)',
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: theme.colorScheme.onSurfaceVariant,
-                  )),
+              Text(
+                '(inactive)',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
             ],
           ],
         ),
@@ -265,9 +275,12 @@ class _TravelerTile extends StatelessWidget {
                 children: [
                   Icon(Icons.group, size: 14, color: theme.colorScheme.primary),
                   const SizedBox(width: 4),
-                  Text('Can book for others',
-                      style: theme.textTheme.bodySmall
-                          ?.copyWith(color: theme.colorScheme.primary)),
+                  Text(
+                    'Can book for others',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.primary,
+                    ),
+                  ),
                 ],
               ),
           ],
@@ -282,8 +295,10 @@ class _TravelerTile extends StatelessWidget {
             const PopupMenuItem(value: 'edit', child: Text('Edit')),
             PopupMenuItem(
               value: 'remove',
-              child: Text('Remove',
-                  style: TextStyle(color: theme.colorScheme.error)),
+              child: Text(
+                'Remove',
+                style: TextStyle(color: theme.colorScheme.error),
+              ),
             ),
           ],
         ),
@@ -370,10 +385,12 @@ class _TravelerEditPageState extends State<TravelerEditPage> {
         lastName: _lastName.text.trim(),
         email: _email.text.trim(),
         phone: _phone.text.trim().isEmpty ? null : _phone.text.trim(),
-        department:
-            _department.text.trim().isEmpty ? null : _department.text.trim(),
-        costCenter:
-            _costCenter.text.trim().isEmpty ? null : _costCenter.text.trim(),
+        department: _department.text.trim().isEmpty
+            ? null
+            : _department.text.trim(),
+        costCenter: _costCenter.text.trim().isEmpty
+            ? null
+            : _costCenter.text.trim(),
         role: _role,
         canBookForOthers: _canBookForOthers,
         isActive: _isActive,
@@ -392,18 +409,18 @@ class _TravelerEditPageState extends State<TravelerEditPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text(widget.traveler == null
-                  ? 'Traveler added.'
-                  : 'Traveler updated.')),
+            content: Text(
+              widget.traveler == null ? 'Traveler added.' : 'Traveler updated.',
+            ),
+          ),
         );
         widget.onSaved();
         Navigator.of(context).pop();
       }
     } on BffException catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Save failed: ${e.message}')),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Save failed: ${e.message}')));
       }
     } finally {
       if (mounted) setState(() => _saving = false);
@@ -414,9 +431,7 @@ class _TravelerEditPageState extends State<TravelerEditPage> {
   Widget build(BuildContext context) {
     final isNew = widget.traveler == null;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(isNew ? 'Add Traveler' : 'Edit Traveler'),
-      ),
+      appBar: AppBar(title: Text(isNew ? 'Add Traveler' : 'Edit Traveler')),
       body: Form(
         key: _formKey,
         child: ListView(
@@ -518,10 +533,7 @@ class _TravelerEditPageState extends State<TravelerEditPage> {
                 border: OutlineInputBorder(),
               ),
               items: TravelerRole.values
-                  .map((r) => DropdownMenuItem(
-                        value: r,
-                        child: Text(r.label),
-                      ))
+                  .map((r) => DropdownMenuItem(value: r, child: Text(r.label)))
                   .toList(),
               onChanged: (v) =>
                   setState(() => _role = v ?? TravelerRole.traveler),
@@ -532,7 +544,8 @@ class _TravelerEditPageState extends State<TravelerEditPage> {
             SwitchListTile(
               title: const Text('Can book for others'),
               subtitle: const Text(
-                  'Allow this traveler to book on behalf of other company members'),
+                'Allow this traveler to book on behalf of other company members',
+              ),
               value: _canBookForOthers,
               onChanged: (v) => setState(() => _canBookForOthers = v),
               contentPadding: EdgeInsets.zero,
@@ -540,7 +553,8 @@ class _TravelerEditPageState extends State<TravelerEditPage> {
             SwitchListTile(
               title: const Text('Active'),
               subtitle: const Text(
-                  'Inactive travelers cannot make bookings at corporate rates'),
+                'Inactive travelers cannot make bookings at corporate rates',
+              ),
               value: _isActive,
               onChanged: (v) => setState(() => _isActive = v),
               contentPadding: EdgeInsets.zero,
@@ -548,11 +562,11 @@ class _TravelerEditPageState extends State<TravelerEditPage> {
             const SizedBox(height: 24),
 
             // ── Loyalty ───────────────────────────────────────────────
-            Text('Loyalty Memberships (optional)',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleSmall
-                    ?.copyWith(fontWeight: FontWeight.w600)),
+            Text(
+              'Loyalty Memberships (optional)',
+              style: Theme.of(context).textTheme.titleSmall
+                  ?.copyWith(fontWeight: FontWeight.w600),
+            ),
             const SizedBox(height: 8),
             Row(
               children: [
@@ -591,7 +605,10 @@ class _TravelerEditPageState extends State<TravelerEditPage> {
                         width: 20,
                         height: 20,
                         child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white))
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
                     : Text(isNew ? 'Add Traveler' : 'Save Changes'),
               ),
             ),
@@ -619,14 +636,19 @@ class _ErrorView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.error_outline,
-                size: 48, color: Theme.of(context).colorScheme.error),
+            Icon(
+              Icons.error_outline,
+              size: 48,
+              color: Theme.of(context).colorScheme.error,
+            ),
             const SizedBox(height: 16),
             const Text('Unable to load travelers'),
             const SizedBox(height: 8),
-            Text(message,
-                style: Theme.of(context).textTheme.bodySmall,
-                textAlign: TextAlign.center),
+            Text(
+              message,
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 16),
             FilledButton(onPressed: onRetry, child: const Text('Retry')),
           ],
@@ -645,12 +667,17 @@ class _EmptyRoster extends StatelessWidget {
     return ListView(
       children: [
         const SizedBox(height: 80),
-        Icon(Icons.group_add,
-            size: 48, color: Theme.of(context).colorScheme.onSurfaceVariant),
+        Icon(
+          Icons.group_add,
+          size: 48,
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        ),
         const SizedBox(height: 16),
-        Text('No travelers yet',
-            style: Theme.of(context).textTheme.titleMedium,
-            textAlign: TextAlign.center),
+        Text(
+          'No travelers yet',
+          style: Theme.of(context).textTheme.titleMedium,
+          textAlign: TextAlign.center,
+        ),
         const SizedBox(height: 8),
         Text(
           'Add your company travelers to let them book at corporate rates.',

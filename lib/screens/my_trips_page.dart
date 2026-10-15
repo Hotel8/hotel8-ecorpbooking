@@ -73,16 +73,20 @@ class _MyTripsPageState extends State<MyTripsPage>
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Cancel Booking?'),
-        content: Text('Cancel reservation ${booking.confirmationNumber}? '
-            'This action may be subject to cancellation fees per corporate rate policy.'),
+        content: Text(
+          'Cancel reservation ${booking.confirmationNumber}? '
+          'This action may be subject to cancellation fees per corporate rate policy.',
+        ),
         actions: [
           TextButton(
-              onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('Keep')),
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Keep'),
+          ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
             style: FilledButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.error),
+              backgroundColor: Theme.of(context).colorScheme.error,
+            ),
             child: const Text('Cancel Booking'),
           ),
         ],
@@ -92,16 +96,15 @@ class _MyTripsPageState extends State<MyTripsPage>
     try {
       await widget.client.cancelBooking(widget.company.id, booking.id);
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Booking cancelled.')),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Booking cancelled.')));
         _refresh();
       }
     } on BffException catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Cancel failed: ${e.message}')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Cancel failed: ${e.message}')));
       }
     }
   }
@@ -120,8 +123,10 @@ class _MyTripsPageState extends State<MyTripsPage>
                 Navigator.pop(ctx);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                      content: Text(
-                          'Date modification — contact your travel manager')),
+                    content: Text(
+                      'Date modification — contact your travel manager',
+                    ),
+                  ),
                 );
               },
             ),
@@ -132,8 +137,10 @@ class _MyTripsPageState extends State<MyTripsPage>
                 Navigator.pop(ctx);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                      content: Text(
-                          'Traveler change — contact your travel manager')),
+                    content: Text(
+                      'Traveler change — contact your travel manager',
+                    ),
+                  ),
                 );
               },
             ),
@@ -152,16 +159,22 @@ class _MyTripsPageState extends State<MyTripsPage>
                 Navigator.pop(ctx);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                      content: Text(
-                          'Added: ${DateFormat('MMM d').format(booking.arrivalDate)} — ${booking.propertyName}')),
+                    content: Text(
+                      'Added: ${DateFormat('MMM d').format(booking.arrivalDate)} — ${booking.propertyName}',
+                    ),
+                  ),
                 );
               },
             ),
             ListTile(
-              leading: Icon(Icons.cancel,
-                  color: Theme.of(context).colorScheme.error),
-              title: Text('Cancel Booking',
-                  style: TextStyle(color: Theme.of(context).colorScheme.error)),
+              leading: Icon(
+                Icons.cancel,
+                color: Theme.of(context).colorScheme.error,
+              ),
+              title: Text(
+                'Cancel Booking',
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
               onTap: () {
                 Navigator.pop(ctx);
                 _cancelBooking(booking);
@@ -205,8 +218,10 @@ class _MyTripsPageState extends State<MyTripsPage>
     );
   }
 
-  Widget _buildTab(Future<List<CorporateBooking>> future,
-      {required bool isUpcoming}) {
+  Widget _buildTab(
+    Future<List<CorporateBooking>> future, {
+    required bool isUpcoming,
+  }) {
     return FutureBuilder<List<CorporateBooking>>(
       future: future,
       builder: (context, snapshot) {
@@ -279,7 +294,9 @@ class _BookingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final fmt = NumberFormat.currency(
-        name: booking.currencyCode, symbol: _symbolFor(booking.currencyCode));
+      name: booking.currencyCode,
+      symbol: _symbolFor(booking.currencyCode),
+    );
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
@@ -298,17 +315,22 @@ class _BookingCard extends StatelessWidget {
                       color: theme.colorScheme.primaryContainer,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Icon(Icons.hotel,
-                        color: theme.colorScheme.onPrimaryContainer),
+                    child: Icon(
+                      Icons.hotel,
+                      color: theme.colorScheme.onPrimaryContainer,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(booking.propertyName,
-                            style: theme.textTheme.titleMedium
-                                ?.copyWith(fontWeight: FontWeight.w600)),
+                        Text(
+                          booking.propertyName,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                         Text(
                           '${DateFormat('MMM d').format(booking.arrivalDate)} — ${DateFormat('MMM d').format(booking.departureDate)} · ${booking.numberOfNights} night${booking.numberOfNights != 1 ? "s" : ""}',
                           style: theme.textTheme.bodySmall,
@@ -327,11 +349,13 @@ class _BookingCard extends StatelessWidget {
                   if (booking.roomTypeName.isNotEmpty)
                     _InfoChip(icon: Icons.bed, text: booking.roomTypeName),
                   _InfoChip(
-                      icon: Icons.location_on_outlined,
-                      text: booking.propertyCity),
+                    icon: Icons.location_on_outlined,
+                    text: booking.propertyCity,
+                  ),
                   _InfoChip(
-                      icon: Icons.credit_card,
-                      text: booking.paymentMethod.label),
+                    icon: Icons.credit_card,
+                    text: booking.paymentMethod.label,
+                  ),
                   if (!booking.policyCompliant)
                     _InfoChip(
                       icon: Icons.warning_amber,
@@ -358,15 +382,17 @@ class _BookingCard extends StatelessWidget {
                       Text(
                         fmt.format(booking.rateAmount),
                         style: theme.textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: theme.colorScheme.primary),
+                          fontWeight: FontWeight.bold,
+                          color: theme.colorScheme.primary,
+                        ),
                       ),
                       if (booking.savings > 0)
                         Text(
                           'Save ${fmt.format(booking.savings)}',
                           style: theme.textTheme.bodySmall?.copyWith(
-                              color: theme.colorScheme.primary,
-                              fontWeight: FontWeight.w600),
+                            color: theme.colorScheme.primary,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                     ],
                   ),
@@ -374,12 +400,15 @@ class _BookingCard extends StatelessWidget {
                     Row(
                       children: [
                         TextButton(
-                            onPressed: onModify, child: const Text('Modify')),
+                          onPressed: onModify,
+                          child: const Text('Modify'),
+                        ),
                         const SizedBox(width: 8),
                         TextButton(
                           onPressed: onCancel,
                           style: TextButton.styleFrom(
-                              foregroundColor: theme.colorScheme.error),
+                            foregroundColor: theme.colorScheme.error,
+                          ),
                           child: const Text('Cancel'),
                         ),
                       ],
@@ -430,19 +459,16 @@ class _StatusChip extends StatelessWidget {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(status.label,
-          style:
-              TextStyle(fontSize: 11, color: fg, fontWeight: FontWeight.w600)),
+      child: Text(
+        status.label,
+        style: TextStyle(fontSize: 11, color: fg, fontWeight: FontWeight.w600),
+      ),
     );
   }
 }
 
 class _InfoChip extends StatelessWidget {
-  const _InfoChip({
-    required this.icon,
-    required this.text,
-    this.color,
-  });
+  const _InfoChip({required this.icon, required this.text, this.color});
 
   final IconData icon;
   final String text;
@@ -456,8 +482,10 @@ class _InfoChip extends StatelessWidget {
       children: [
         Icon(icon, size: 14, color: c),
         const SizedBox(width: 4),
-        Text(text,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: c)),
+        Text(
+          text,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: c),
+        ),
       ],
     );
   }
@@ -488,7 +516,9 @@ class _BookingDetailSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final fmt = NumberFormat.currency(
-        name: booking.currencyCode, symbol: _symbolFor(booking.currencyCode));
+      name: booking.currencyCode,
+      symbol: _symbolFor(booking.currencyCode),
+    );
     return Padding(
       padding: EdgeInsets.only(
         left: 24,
@@ -504,7 +534,9 @@ class _BookingDetailSheet extends StatelessWidget {
             Text('Booking Details', style: theme.textTheme.headlineSmall),
             const SizedBox(height: 16),
             _DetailRow(
-                label: 'Confirmation', value: booking.confirmationNumber),
+              label: 'Confirmation',
+              value: booking.confirmationNumber,
+            ),
             _DetailRow(label: 'Status', value: booking.status.label),
             _DetailRow(label: 'Property', value: booking.propertyName),
             _DetailRow(label: 'City', value: booking.propertyCity),
@@ -532,7 +564,9 @@ class _BookingDetailSheet extends StatelessWidget {
               _DetailRow(label: 'Purpose', value: booking.purposeOfTravel!),
             const Divider(height: 24),
             _DetailRow(
-                label: 'Corporate Rate', value: fmt.format(booking.rateAmount)),
+              label: 'Corporate Rate',
+              value: fmt.format(booking.rateAmount),
+            ),
             if (booking.publicRateAmount > booking.rateAmount)
               _DetailRow(
                 label: 'Public Rate',
@@ -547,8 +581,9 @@ class _BookingDetailSheet extends StatelessWidget {
               ),
             if (!booking.policyCompliant)
               _DetailRow(
-                  label: 'Policy',
-                  value: booking.policyViolationReason ?? 'Out of policy'),
+                label: 'Policy',
+                value: booking.policyViolationReason ?? 'Out of policy',
+              ),
             const SizedBox(height: 16),
           ],
         ),
@@ -578,9 +613,12 @@ class _DetailRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label,
-              style: theme.textTheme.bodyMedium
-                  ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+          Text(
+            label,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
           Text(
             value,
             style: theme.textTheme.bodyMedium?.copyWith(
@@ -612,14 +650,19 @@ class _ErrorView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.error_outline,
-                size: 48, color: Theme.of(context).colorScheme.error),
+            Icon(
+              Icons.error_outline,
+              size: 48,
+              color: Theme.of(context).colorScheme.error,
+            ),
             const SizedBox(height: 16),
             const Text('Unable to load bookings'),
             const SizedBox(height: 8),
-            Text(message,
-                style: Theme.of(context).textTheme.bodySmall,
-                textAlign: TextAlign.center),
+            Text(
+              message,
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 16),
             FilledButton(onPressed: onRetry, child: const Text('Retry')),
           ],

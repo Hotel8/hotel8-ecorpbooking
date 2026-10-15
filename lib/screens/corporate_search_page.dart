@@ -87,9 +87,7 @@ class _CorporateSearchPageState extends State<CorporateSearchPage> {
         .difference(widget.request.arrivalDate)
         .inDays;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Corporate Search'),
-      ),
+      appBar: AppBar(title: const Text('Corporate Search')),
       body: Column(
         children: [
           // ── Search summary bar ──────────────────────────────────────
@@ -109,8 +107,8 @@ class _CorporateSearchPageState extends State<CorporateSearchPage> {
                 Text(
                   '${_allResults?.length ?? 0} corporate rates',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ],
             ),
@@ -203,14 +201,17 @@ class _SearchSummaryBar extends StatelessWidget {
             style: theme.textTheme.titleSmall,
           ),
           const SizedBox(width: 8),
-          Text('· $nights night${nights != 1 ? "s" : ""}',
-              style: theme.textTheme.bodySmall),
+          Text(
+            '· $nights night${nights != 1 ? "s" : ""}',
+            style: theme.textTheme.bodySmall,
+          ),
           const Spacer(),
           const Icon(Icons.people_outline, size: 18),
           const SizedBox(width: 4),
           Text(
-              '${request.numberOfGuests} traveler${request.numberOfGuests != 1 ? "s" : ""}',
-              style: theme.textTheme.titleSmall),
+            '${request.numberOfGuests} traveler${request.numberOfGuests != 1 ? "s" : ""}',
+            style: theme.textTheme.titleSmall,
+          ),
         ],
       ),
     );
@@ -250,7 +251,9 @@ class _RateCard extends StatelessWidget {
     final theme = Theme.of(context);
     final rate = result.rate;
     final fmt = NumberFormat.currency(
-        name: rate.currencyCode, symbol: _symbolFor(rate.currencyCode));
+      name: rate.currencyCode,
+      symbol: _symbolFor(rate.currencyCode),
+    );
     final totalCorporate = rate.corporateRate * nights;
     final totalPublic = rate.publicRate * nights;
     final outOfPolicy = !result.policyCompliant;
@@ -271,26 +274,35 @@ class _RateCard extends StatelessWidget {
                     color: theme.colorScheme.primaryContainer,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Icon(Icons.hotel,
-                      color: theme.colorScheme.onPrimaryContainer),
+                  child: Icon(
+                    Icons.hotel,
+                    color: theme.colorScheme.onPrimaryContainer,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(rate.propertyName,
-                          style: theme.textTheme.titleMedium
-                              ?.copyWith(fontWeight: FontWeight.w600)),
-                      Text('${rate.propertyCity} · ${rate.roomTypeName}',
-                          style: theme.textTheme.bodySmall),
+                      Text(
+                        rate.propertyName,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        '${rate.propertyCity} · ${rate.roomTypeName}',
+                        style: theme.textTheme.bodySmall,
+                      ),
                     ],
                   ),
                 ),
                 if (outOfPolicy)
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: theme.colorScheme.errorContainer,
                       borderRadius: BorderRadius.circular(12),
@@ -306,8 +318,10 @@ class _RateCard extends StatelessWidget {
                   )
                 else
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: theme.colorScheme.tertiaryContainer,
                       borderRadius: BorderRadius.circular(12),
@@ -325,14 +339,20 @@ class _RateCard extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             if (rate.ratePlanName.isNotEmpty)
-              Text(rate.ratePlanName,
-                  style: theme.textTheme.bodySmall
-                      ?.copyWith(fontWeight: FontWeight.w500)),
+              Text(
+                rate.ratePlanName,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             if (rate.breakfastIncluded)
               Row(
                 children: [
-                  Icon(Icons.free_breakfast,
-                      size: 16, color: theme.colorScheme.primary),
+                  Icon(
+                    Icons.free_breakfast,
+                    size: 16,
+                    color: theme.colorScheme.primary,
+                  ),
                   const SizedBox(width: 4),
                   Text('Breakfast included', style: theme.textTheme.bodySmall),
                 ],
@@ -341,12 +361,17 @@ class _RateCard extends StatelessWidget {
               const SizedBox(height: 4),
               Row(
                 children: [
-                  Icon(Icons.policy_outlined,
-                      size: 16, color: theme.colorScheme.onSurfaceVariant),
+                  Icon(
+                    Icons.policy_outlined,
+                    size: 16,
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
                   const SizedBox(width: 4),
                   Expanded(
-                    child: Text(rate.cancellationPolicy!,
-                        style: theme.textTheme.bodySmall),
+                    child: Text(
+                      rate.cancellationPolicy!,
+                      style: theme.textTheme.bodySmall,
+                    ),
                   ),
                 ],
               ),
@@ -372,8 +397,9 @@ class _RateCard extends StatelessWidget {
                     Text(
                       fmt.format(totalCorporate),
                       style: theme.textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: theme.colorScheme.primary),
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.primary,
+                      ),
                     ),
                     Text(
                       '${fmt.format(rate.corporateRate)}/night · $nights night${nights != 1 ? "s" : ""}',
@@ -384,29 +410,38 @@ class _RateCard extends StatelessWidget {
                       Text(
                         'Save ${fmt.format(rate.savings * nights)} (${rate.savingsPercent.toStringAsFixed(0)}%)',
                         style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.colorScheme.primary,
-                            fontWeight: FontWeight.w600),
+                          color: theme.colorScheme.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                   ],
                 ),
                 FilledButton(
-                    onPressed: onSelect, child: const Text('Book Now')),
+                  onPressed: onSelect,
+                  child: const Text('Book Now'),
+                ),
               ],
             ),
             if (outOfPolicy && result.policyViolationReason != null) ...[
               const SizedBox(height: 8),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
-                  color:
-                      theme.colorScheme.errorContainer.withValues(alpha: 0.5),
+                  color: theme.colorScheme.errorContainer.withValues(
+                    alpha: 0.5,
+                  ),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.warning_amber,
-                        size: 16, color: theme.colorScheme.error),
+                    Icon(
+                      Icons.warning_amber,
+                      size: 16,
+                      color: theme.colorScheme.error,
+                    ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
@@ -476,8 +511,9 @@ class _BookingSheetState extends State<_BookingSheet> {
 
   Future<void> _loadCreditMethods() async {
     try {
-      _creditMethods =
-          await widget.client.getApprovedCreditMethods(widget.company.id);
+      _creditMethods = await widget.client.getApprovedCreditMethods(
+        widget.company.id,
+      );
     } on BffException {
       // Live surface unreachable — fall back to the static company flags.
     }
@@ -520,7 +556,8 @@ class _BookingSheetState extends State<_BookingSheet> {
         !_billToCompanyApproved) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content: Text('Bill-to-company is not approved for your account.')),
+          content: Text('Bill-to-company is not approved for your account.'),
+        ),
       );
       return;
     }
@@ -567,9 +604,9 @@ class _BookingSheetState extends State<_BookingSheet> {
       }
     } on BffException catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Booking failed: ${e.message}')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Booking failed: ${e.message}')));
       }
     } finally {
       if (mounted) setState(() => _submitting = false);
@@ -584,7 +621,9 @@ class _BookingSheetState extends State<_BookingSheet> {
         .difference(widget.request.arrivalDate)
         .inDays;
     final fmt = NumberFormat.currency(
-        name: rate.currencyCode, symbol: _symbolFor(rate.currencyCode));
+      name: rate.currencyCode,
+      symbol: _symbolFor(rate.currencyCode),
+    );
     final total = rate.corporateRate * nights;
 
     return Padding(
@@ -602,17 +641,21 @@ class _BookingSheetState extends State<_BookingSheet> {
             // Header
             Text('Confirm Booking', style: theme.textTheme.headlineSmall),
             const SizedBox(height: 4),
-            Text('${rate.propertyName} · ${rate.roomTypeName}',
-                style: theme.textTheme.bodyMedium
-                    ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+            Text(
+              '${rate.propertyName} · ${rate.roomTypeName}',
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
             const SizedBox(height: 16),
 
             // Summary
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color:
-                    theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
+                color: theme.colorScheme.primaryContainer.withValues(
+                  alpha: 0.3,
+                ),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -626,15 +669,17 @@ class _BookingSheetState extends State<_BookingSheet> {
                         style: theme.textTheme.titleSmall,
                       ),
                       Text(
-                          '$nights night${nights != 1 ? "s" : ""} · ${widget.request.numberOfGuests} traveler${widget.request.numberOfGuests != 1 ? "s" : ""}',
-                          style: theme.textTheme.bodySmall),
+                        '$nights night${nights != 1 ? "s" : ""} · ${widget.request.numberOfGuests} traveler${widget.request.numberOfGuests != 1 ? "s" : ""}',
+                        style: theme.textTheme.bodySmall,
+                      ),
                     ],
                   ),
                   Text(
                     fmt.format(total),
                     style: theme.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: theme.colorScheme.primary),
+                      fontWeight: FontWeight.bold,
+                      color: theme.colorScheme.primary,
+                    ),
                   ),
                 ],
               ),
@@ -642,9 +687,12 @@ class _BookingSheetState extends State<_BookingSheet> {
             const SizedBox(height: 20),
 
             // Traveler selection
-            Text('Traveler',
-                style: theme.textTheme.titleSmall
-                    ?.copyWith(fontWeight: FontWeight.w600)),
+            Text(
+              'Traveler',
+              style: theme.textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             const SizedBox(height: 8),
             DropdownButtonFormField<String>(
               value: _travelerId.isEmpty ? null : _travelerId,
@@ -653,19 +701,22 @@ class _BookingSheetState extends State<_BookingSheet> {
                 prefixIcon: Icon(Icons.person_outline),
               ),
               items: widget.travelers
-                  .map((t) => DropdownMenuItem(
-                        value: t.id,
-                        child: Text(t.fullName),
-                      ))
+                  .map(
+                    (t) =>
+                        DropdownMenuItem(value: t.id, child: Text(t.fullName)),
+                  )
                   .toList(),
               onChanged: (v) => setState(() => _travelerId = v ?? ''),
             ),
             const SizedBox(height: 16),
 
             // Payment method
-            Text('Payment Method',
-                style: theme.textTheme.titleSmall
-                    ?.copyWith(fontWeight: FontWeight.w600)),
+            Text(
+              'Payment Method',
+              style: theme.textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -688,7 +739,8 @@ class _BookingSheetState extends State<_BookingSheet> {
                     label: const Text('Bill to Company'),
                     selected: _paymentMethod == PaymentMethod.billToCompany,
                     onSelected: (_) => setState(
-                        () => _paymentMethod = PaymentMethod.billToCompany),
+                      () => _paymentMethod = PaymentMethod.billToCompany,
+                    ),
                   ),
               ],
             ),
@@ -751,8 +803,9 @@ class _BookingSheetState extends State<_BookingSheet> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color:
-                      theme.colorScheme.errorContainer.withValues(alpha: 0.5),
+                  color: theme.colorScheme.errorContainer.withValues(
+                    alpha: 0.5,
+                  ),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -761,8 +814,7 @@ class _BookingSheetState extends State<_BookingSheet> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        widget.result.policyViolationReason ??
-                            'This booking is out of policy and may require manager approval.',
+                        widget.result.policyViolationReason ?? 'This booking is out of policy and may require manager approval.',
                         style: theme.textTheme.bodySmall,
                       ),
                     ),
@@ -781,7 +833,10 @@ class _BookingSheetState extends State<_BookingSheet> {
                         width: 20,
                         height: 20,
                         child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white))
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
                     : Text('Confirm Booking · ${fmt.format(total)}'),
               ),
             ),
@@ -809,14 +864,19 @@ class _ErrorView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.error_outline,
-                size: 48, color: Theme.of(context).colorScheme.error),
+            Icon(
+              Icons.error_outline,
+              size: 48,
+              color: Theme.of(context).colorScheme.error,
+            ),
             const SizedBox(height: 16),
             const Text('Unable to load corporate rates'),
             const SizedBox(height: 8),
-            Text(message,
-                style: Theme.of(context).textTheme.bodySmall,
-                textAlign: TextAlign.center),
+            Text(
+              message,
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 16),
             FilledButton(onPressed: onRetry, child: const Text('Retry')),
           ],
@@ -834,12 +894,17 @@ class _EmptyResults extends StatelessWidget {
     return ListView(
       children: [
         const SizedBox(height: 80),
-        Icon(Icons.search_off,
-            size: 48, color: Theme.of(context).colorScheme.onSurfaceVariant),
+        Icon(
+          Icons.search_off,
+          size: 48,
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        ),
         const SizedBox(height: 16),
-        Text('No corporate rates available',
-            style: Theme.of(context).textTheme.titleMedium,
-            textAlign: TextAlign.center),
+        Text(
+          'No corporate rates available',
+          style: Theme.of(context).textTheme.titleMedium,
+          textAlign: TextAlign.center,
+        ),
         const SizedBox(height: 8),
         Text(
           'Try adjusting your dates or destination. Contact your travel manager if you need additional properties.',

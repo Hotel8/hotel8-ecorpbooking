@@ -43,8 +43,10 @@ class _CorporateDashboardPageState extends State<CorporateDashboardPage> {
   @override
   void initState() {
     super.initState();
-    _upcomingFuture =
-        widget.client.getBookings(companyId: widget.company.id, upcoming: true);
+    _upcomingFuture = widget.client.getBookings(
+      companyId: widget.company.id,
+      upcoming: true,
+    );
     _announcementsFuture = widget.client.getAnnouncements(widget.company.id);
   }
 
@@ -73,7 +75,8 @@ class _CorporateDashboardPageState extends State<CorporateDashboardPage> {
   }
 
   Future<void> _pickCheckOut() async {
-    final first = _checkIn?.add(const Duration(days: 1)) ??
+    final first =
+        _checkIn?.add(const Duration(days: 1)) ??
         DateTime.now().add(const Duration(days: 1));
     final date = await showDatePicker(
       context: context,
@@ -89,7 +92,8 @@ class _CorporateDashboardPageState extends State<CorporateDashboardPage> {
     if (_checkIn == null || _checkOut == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content: Text('Please select check-in and check-out dates.')),
+          content: Text('Please select check-in and check-out dates.'),
+        ),
       );
       return;
     }
@@ -116,10 +120,8 @@ class _CorporateDashboardPageState extends State<CorporateDashboardPage> {
   void _openTrips() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => MyTripsPage(
-          client: widget.client,
-          company: widget.company,
-        ),
+        builder: (_) =>
+            MyTripsPage(client: widget.client, company: widget.company),
       ),
     );
   }
@@ -142,10 +144,13 @@ class _CorporateDashboardPageState extends State<CorporateDashboardPage> {
       body: RefreshIndicator(
         onRefresh: () async {
           setState(() {
-            _upcomingFuture = widget.client
-                .getBookings(companyId: widget.company.id, upcoming: true);
-            _announcementsFuture =
-                widget.client.getAnnouncements(widget.company.id);
+            _upcomingFuture = widget.client.getBookings(
+              companyId: widget.company.id,
+              upcoming: true,
+            );
+            _announcementsFuture = widget.client.getAnnouncements(
+              widget.company.id,
+            );
           });
           await Future.wait([_upcomingFuture, _announcementsFuture]);
         },
@@ -177,8 +182,10 @@ class _CorporateDashboardPageState extends State<CorporateDashboardPage> {
                             color: Colors.white.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: const Icon(Icons.business_center,
-                              color: Colors.white),
+                          child: const Icon(
+                            Icons.business_center,
+                            color: Colors.white,
+                          ),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
@@ -266,18 +273,24 @@ class _CorporateDashboardPageState extends State<CorporateDashboardPage> {
                             const Text('Travelers'),
                             const Spacer(),
                             IconButton(
-                              icon: const Icon(Icons.remove_circle_outline,
-                                  size: 20),
+                              icon: const Icon(
+                                Icons.remove_circle_outline,
+                                size: 20,
+                              ),
                               onPressed: _travelers > 1
                                   ? () => setState(() => _travelers--)
                                   : null,
                               visualDensity: VisualDensity.compact,
                             ),
-                            Text('$_travelers',
-                                style: theme.textTheme.titleMedium),
+                            Text(
+                              '$_travelers',
+                              style: theme.textTheme.titleMedium,
+                            ),
                             IconButton(
-                              icon: const Icon(Icons.add_circle_outline,
-                                  size: 20),
+                              icon: const Icon(
+                                Icons.add_circle_outline,
+                                size: 20,
+                              ),
                               onPressed: _travelers < 20
                                   ? () => setState(() => _travelers++)
                                   : null,
@@ -334,12 +347,17 @@ class _CorporateDashboardPageState extends State<CorporateDashboardPage> {
                 padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
                 child: Row(
                   children: [
-                    Text('Upcoming Bookings',
-                        style: theme.textTheme.titleMedium
-                            ?.copyWith(fontWeight: FontWeight.w600)),
+                    Text(
+                      'Upcoming Bookings',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     const Spacer(),
                     TextButton(
-                        onPressed: _openTrips, child: const Text('View all')),
+                      onPressed: _openTrips,
+                      child: const Text('View all'),
+                    ),
                   ],
                 ),
               ),
@@ -359,20 +377,22 @@ class _CorporateDashboardPageState extends State<CorporateDashboardPage> {
                         ? (snapshot.error as BffException).message
                         : snapshot.error.toString();
                     return _ErrorCard(
-                        message: msg,
-                        onRetry: () {
-                          setState(() => _upcomingFuture = widget.client
-                              .getBookings(
-                                  companyId: widget.company.id,
-                                  upcoming: true));
-                        });
+                      message: msg,
+                      onRetry: () {
+                        setState(
+                          () => _upcomingFuture = widget.client.getBookings(
+                            companyId: widget.company.id,
+                            upcoming: true,
+                          ),
+                        );
+                      },
+                    );
                   }
                   final list = snapshot.data ?? const [];
                   if (list.isEmpty) {
                     return const _EmptyCard(
                       icon: Icons.event_available,
-                      message:
-                          'No upcoming bookings. Search to book your next trip.',
+                      message: 'No upcoming bookings. Search to book your next trip.',
                     );
                   }
                   return Column(
@@ -389,9 +409,12 @@ class _CorporateDashboardPageState extends State<CorporateDashboardPage> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
-                child: Text('Company Announcements',
-                    style: theme.textTheme.titleMedium
-                        ?.copyWith(fontWeight: FontWeight.w600)),
+                child: Text(
+                  'Company Announcements',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ),
             SliverToBoxAdapter(
@@ -433,16 +456,14 @@ class _CorporateDashboardPageState extends State<CorporateDashboardPage> {
       Announcement(
         id: '1',
         title: 'New Negotiated Rates Available',
-        body:
-            'We have secured new corporate rates for the downtown properties effective this quarter. Enjoy up to 25% savings.',
+        body: 'We have secured new corporate rates for the downtown properties effective this quarter. Enjoy up to 25% savings.',
         publishedAt: now.subtract(const Duration(days: 2)),
         category: 'Rates',
       ),
       Announcement(
         id: '2',
         title: 'Travel Policy Update',
-        body:
-            'All bookings must be made at least 7 days in advance. Same-day bookings require manager approval.',
+        body: 'All bookings must be made at least 7 days in advance. Same-day bookings require manager approval.',
         publishedAt: now.subtract(const Duration(days: 7)),
         category: 'Policy',
       ),
@@ -504,8 +525,11 @@ class _QuickLink extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
           child: Column(
             children: [
-              Icon(icon,
-                  size: 32, color: Theme.of(context).colorScheme.primary),
+              Icon(
+                icon,
+                size: 32,
+                color: Theme.of(context).colorScheme.primary,
+              ),
               const SizedBox(height: 8),
               Text(label, style: Theme.of(context).textTheme.titleSmall),
             ],
@@ -535,8 +559,10 @@ class _BookingMiniCard extends StatelessWidget {
           ),
           child: Icon(Icons.hotel, color: theme.colorScheme.onPrimaryContainer),
         ),
-        title: Text(booking.propertyName,
-            style: const TextStyle(fontWeight: FontWeight.w600)),
+        title: Text(
+          booking.propertyName,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+        ),
         subtitle: Text(
           '${DateFormat('MMM d').format(booking.arrivalDate)} — ${DateFormat('MMM d').format(booking.departureDate)} · ${booking.numberOfNights} nights',
         ),
@@ -546,12 +572,13 @@ class _BookingMiniCard extends StatelessWidget {
           children: [
             Text(
               NumberFormat.currency(
-                      name: booking.currencyCode,
-                      symbol: _symbolFor(booking.currencyCode))
-                  .format(booking.rateAmount),
+                name: booking.currencyCode,
+                symbol: _symbolFor(booking.currencyCode),
+              ).format(booking.rateAmount),
               style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: theme.colorScheme.primary),
+                fontWeight: FontWeight.bold,
+                color: theme.colorScheme.primary,
+              ),
             ),
             const SizedBox(height: 2),
             Text(booking.status.label, style: theme.textTheme.bodySmall),
@@ -595,26 +622,37 @@ class _AnnouncementCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.campaign,
-                    size: 18, color: theme.colorScheme.primary),
+                Icon(
+                  Icons.campaign,
+                  size: 18,
+                  color: theme.colorScheme.primary,
+                ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(announcement.title,
-                      style: theme.textTheme.titleSmall
-                          ?.copyWith(fontWeight: FontWeight.w600)),
+                  child: Text(
+                    announcement.title,
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 if (announcement.category != null)
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: theme.colorScheme.secondaryContainer,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Text(announcement.category!,
-                        style: TextStyle(
-                            fontSize: 11,
-                            color: theme.colorScheme.onSecondaryContainer)),
+                    child: Text(
+                      announcement.category!,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: theme.colorScheme.onSecondaryContainer,
+                      ),
+                    ),
                   ),
               ],
             ),
@@ -645,12 +683,17 @@ class _ErrorCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          Icon(Icons.error_outline,
-              size: 40, color: Theme.of(context).colorScheme.error),
+          Icon(
+            Icons.error_outline,
+            size: 40,
+            color: Theme.of(context).colorScheme.error,
+          ),
           const SizedBox(height: 8),
-          Text(message,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodySmall),
+          Text(
+            message,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
           const SizedBox(height: 12),
           OutlinedButton(onPressed: onRetry, child: const Text('Retry')),
         ],
@@ -670,12 +713,17 @@ class _EmptyCard extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       child: Column(
         children: [
-          Icon(icon,
-              size: 40, color: Theme.of(context).colorScheme.onSurfaceVariant),
+          Icon(
+            icon,
+            size: 40,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
           const SizedBox(height: 8),
-          Text(message,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium),
+          Text(
+            message,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
         ],
       ),
     );
