@@ -1,4 +1,4 @@
-# Hotel8:eCorpBooking — Detailed Design Document
+# Hotel8:eCorpBooking - Detailed Design Document
 
 ## 1. Scope & Context
 
@@ -86,14 +86,14 @@ graph TD
     C -->|session /proxy/*| BFF[Sentin8:BFF]
 ```
 
-- `main.dart` / `app.dart` — entry + shell navigation.
-- `screens/*.dart` — the 7 corporate screens; login verifies the company
+- `main.dart` / `app.dart` - entry + shell navigation.
+- `screens/*.dart` - the 7 corporate screens; login verifies the company
   code before credentials; travel-manager screens are role-gated by the
   session.
-- `models.dart` — company/traveler/booking/policy/report contracts.
-- `bff_client.dart` — typed corporate endpoints.
+- `models.dart` - company/traveler/booking/policy/report contracts.
+- `bff_client.dart` - typed corporate endpoints.
 
-### Request lifecycle — corporate login and company binding
+### Request lifecycle - corporate login and company binding
 
 ```mermaid
 sequenceDiagram
@@ -118,7 +118,7 @@ sequenceDiagram
     end
 ```
 
-### Request lifecycle — policy-guarded corporate booking
+### Request lifecycle - policy-guarded corporate booking
 
 ```mermaid
 sequenceDiagram
@@ -203,11 +203,11 @@ implemented in `bff_client.dart`:
 | Rates | `GET /proxy/hotel8-pms/v1/properties/{p}/negotiated-rate-plans` | Hotel8:PMS |
 | Availability | `POST /proxy/hotel8-pms/v1/properties/{p}/availability` (company profile in body) | Hotel8:PMS |
 | Bookings | `POST/GET /proxy/hotel8-pms/v1/properties/{p}/reservations`, `PUT .../{id}`, `POST .../{id}/cancel` | Hotel8:PMS |
-| Credit methods | `GET /proxy/hotel8-pms/v1/properties/{p}/companies/{id}/payment-methods?approved_only=true` — credit-approved methods (post-pay / bill-to-company) the checkout can bill | Hotel8:PMS (corporate surfaces) |
-| Company switching | `GET /proxy/hotel8-pms/v1/properties/{p}/companies/by-traveler/{id}` — the companies the signed-in traveler is bound to (`pms.company_users`) | Hotel8:PMS |
-| Corporate availability (rate-mix) | `POST /proxy/hotel8-pms/v1/properties/{p}/corporate-availability` — availability restricted to the negotiated plans linked to the calling company (`preferences.negotiated_rate_plan_ids`); public plans are withheld when a company context is supplied (pms/DESIGN.md §4) | Hotel8:PMS |
-| SSO-free first-admin provisioning | `GET/PUT /proxy/hotel8-pms/v1/properties/{p}/companies/{id}/admin-provisioning` — decides + provisions the first corporate admin for companies without an IdP (`pms.company_users` ADMIN row) | Hotel8:PMS |
-| Users roster | `GET/POST /proxy/hotel8-pms/v1/properties/{p}/companies/{id}/users` — traveler bindings with role-at-company | Hotel8:PMS |
+| Credit methods | `GET /proxy/hotel8-pms/v1/properties/{p}/companies/{id}/payment-methods?approved_only=true` - credit-approved methods (post-pay / bill-to-company) the checkout can bill | Hotel8:PMS (corporate surfaces) |
+| Company switching | `GET /proxy/hotel8-pms/v1/properties/{p}/companies/by-traveler/{id}` - the companies the signed-in traveler is bound to (`pms.company_users`) | Hotel8:PMS |
+| Corporate availability (rate-mix) | `POST /proxy/hotel8-pms/v1/properties/{p}/corporate-availability` - availability restricted to the negotiated plans linked to the calling company (`preferences.negotiated_rate_plan_ids`); public plans are withheld when a company context is supplied (pms/DESIGN.md §4) | Hotel8:PMS |
+| SSO-free first-admin provisioning | `GET/PUT /proxy/hotel8-pms/v1/properties/{p}/companies/{id}/admin-provisioning` - decides + provisions the first corporate admin for companies without an IdP (`pms.company_users` ADMIN row) | Hotel8:PMS |
+| Users roster | `GET/POST /proxy/hotel8-pms/v1/properties/{p}/companies/{id}/users` - traveler bindings with role-at-company | Hotel8:PMS |
 | Travelers | Company-linked GUEST profiles via `.../profiles` | Hotel8:PMS |
 | Policies | Company-profile field set (via profile update) | Hotel8:PMS |
 | Announcements | `GET /proxy/post/v1/messages?category=ANNOUNCEMENT` | Sentin8:Post |
@@ -259,7 +259,7 @@ flowchart TD
     B -->|4xx/5xx| D[BffException]
     D --> E{kind}
     E -- policy violation --> F[show policy flag + guidance]
-    E -- verification invalid --> G[company code error — restart login]
+    E -- verification invalid --> G[company code error - restart login]
     E -- server/network --> H[error banner; form state preserved]
 ```
 
@@ -313,9 +313,9 @@ graph TD
     WT --> E2E[Hotel8 e2e-ts suite13 drives corporate login → search → book → reports\nthrough BFF as real users]
 ```
 
-- **Unit** — contract mappers and role/policy projection logic.
-- **Widget** — shell and screen mounting.
-- **E2E** — `e2e-ts` covers the corporate journey through browser + BFF;
+- **Unit** - contract mappers and role/policy projection logic.
+- **Widget** - shell and screen mounting.
+- **E2E** - `e2e-ts` covers the corporate journey through browser + BFF;
   deliberately NOT tested here: PMS CRM/rate domain rules, policy engine
   internals (service-owned).
 
@@ -323,11 +323,11 @@ graph TD
 
 - Corporate display-ordering/priority between published and negotiated rates
   when both apply to one stay is an open revenue decision (the rate-mix
-  itself — company-scoped negotiated-only availability — is implemented, §4).
+  itself - company-scoped negotiated-only availability - is implemented, §4).
 - The corporate sales-side `/admin` configuration rides the Hotel8:PMS admin
   RFW pages (companies roster, credit methods, user bindings, negotiated-rate
-  links — pms/DESIGN.md §4); a dedicated in-app admin console for hotel sales
-  staff is not planned — Dash renders the RFW pages.
+  links - pms/DESIGN.md §4); a dedicated in-app admin console for hotel sales
+  staff is not planned - Dash renders the RFW pages.
 
 The SSO-free first-admin provisioning, multi-company binding, and
 credit-method checkout surfacing are implemented (§4; the Request Access

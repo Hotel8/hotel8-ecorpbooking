@@ -1,4 +1,4 @@
-# Hotel8:eCorpBooking — Business Requirements & Functionality
+# Hotel8:eCorpBooking - Business Requirements & Functionality
 
 > Audience: product owners, business analysts, and anyone evaluating what
 > Hotel8:eCorpBooking **does for the business**. For architecture read
@@ -7,15 +7,15 @@
 ## 1. Business Purpose
 
 - Win and retain corporate accounts with a secured, self-service portal for
-  negotiated corporate rates — the corporate counterpart to the public
+  negotiated corporate rates - the corporate counterpart to the public
   eBooking channel.
 - Enforce travel policy at booking time (rate caps, advance booking,
   approved properties, cost centers) so compliance is structural, not
   aspirational.
 - Reduce corporate travel administration: traveler rosters, My Trips, and
   savings/compliance reporting for travel managers.
-- Open flexible payment channels — credit card, post-pay (invoice), and
-  bill-to-company — matching how corporations actually pay.
+- Open flexible payment channels - credit card, post-pay (invoice), and
+  bill-to-company - matching how corporations actually pay.
 
 ## 2. Business Scope (What the Service Provides)
 
@@ -31,12 +31,12 @@
 | Company profile + travel policies + cost centers | ✅ |
 | Announcements feed (via Post) | ✅ |
 | SSO-free first-admin provisioning | ✅ Request Access provisions the first corporate admin (no-IdP companies); idempotent |
-| Credit-method surfacing | ✅ checkout reads the company's approved credit methods (post-pay / bill-to-company) — approval state is live, not a static flag |
+| Credit-method surfacing | ✅ checkout reads the company's approved credit methods (post-pay / bill-to-company) - approval state is live, not a static flag |
 | Traveler company bindings + role roster | ✅ `pms.company_users` read/write via the corporate surfaces (profiles carry role-at-company) |
 | Corporate `/admin` (branding, codes, rate assignment) | ✅ hotel-sales side: PMS admin RFW "Corporate" page (companies roster, credit methods, user bindings, rate links) rendered by Dash |
-| Corporate invoicing execution | ❌ delegated — Bill8:Ledger (server-side) |
+| Corporate invoicing execution | ❌ delegated - Bill8:Ledger (server-side) |
 | Expense/TMS export | ❌ out of scope |
-| Leisure booking | ❌ delegated — Hotel8:eBooking |
+| Leisure booking | ❌ delegated - Hotel8:eBooking |
 | Corporate rate negotiation | ⚙ rate links + company-scoped availability implemented; terms entered by hotel sales on the PMS admin surfaces |
 
 ## 3. Business Capabilities
@@ -45,7 +45,7 @@
 
 | Capability | Business rule |
 |---|---|
-| Company-code verification | Registration/login binds to a company only after its code verifies — negotiated rate data can never be seen unbound. |
+| Company-code verification | Registration/login binds to a company only after its code verifies - negotiated rate data can never be seen unbound. |
 | SSO | Companies with an identity provider sign in via SSO; others use credentials. |
 | Role separation | Travelers book for themselves (or via booking agents); travel managers/admins manage rosters and policies; roles gate management screens. |
 
@@ -53,7 +53,7 @@
 
 | Capability | Business rule |
 |---|---|
-| Corporate rates only | Search shows the company's negotiated rates with the public rate shown (strikethrough) for savings context — public-rate-only results never appear. |
+| Corporate rates only | Search shows the company's negotiated rates with the public rate shown (strikethrough) for savings context - public-rate-only results never appear. |
 | Policy enforcement | Rate caps, advance-booking requirements, and approved-property limits are enforced server-side; out-of-policy choices are flagged (and blocked where policy demands). |
 | Traveler selection | A booker can assign the booking to themselves or a roster traveler, with booking permissions honored. |
 | Payment methods | Credit card (immediate), post-pay (PO number, invoiced), or bill-to-company, gated by the company's credit-approval state. |
@@ -65,7 +65,7 @@
 |---|---|
 | Traveler management | Travel managers add/edit/remove roster members and assign permissions. |
 | Travel policies | Policies (rate caps, advance booking, approved properties) are read and edited via company policy endpoints; enforcement happens at booking. |
-| Reports | Booking volume, spend, savings vs public rates, and compliance rate — broken by property, traveler, and month; CSV export-ready. |
+| Reports | Booking volume, spend, savings vs public rates, and compliance rate - broken by property, traveler, and month; CSV export-ready. |
 | Announcements | Company announcements surface on the dashboard (delivered via Post). |
 
 ## 4. Business Events (Outbound)
@@ -85,7 +85,7 @@ eCorpBooking emits no events. Its actions trigger events in Hotel8:PMS
 
 1. All corporate traffic is BFF-proxied and company-scoped; no session can
    see another company's rates, bookings, or reports.
-2. A booking always references the company path segment — no company-less
+2. A booking always references the company path segment - no company-less
    corporate bookings.
 3. Policy compliance is enforced server-side; the UI flags decisions but
    cannot bypass them.
@@ -93,7 +93,7 @@ eCorpBooking emits no events. Its actions trigger events in Hotel8:PMS
    unapproved company cannot select those methods.
 5. Negotiated rate data never appears in the public eBooking channel.
 6. Money handling: card charges are Bill8 charges; invoicing runs on
-   Bill8:Ledger — the app never performs money movement itself.
+   Bill8:Ledger - the app never performs money movement itself.
 7. Reports show real aggregates or empty states, never fabricated zeros.
 
 ## 6. Target-User Roles & Use Cases
@@ -109,11 +109,11 @@ eCorpBooking emits no events. Its actions trigger events in Hotel8:PMS
 ## 7. KPIs / Success Criteria
 
 - **Corporate channel share** of total bookings and room nights.
-- **Policy compliance rate** — in-policy bookings as a share of attempts.
-- **Savings vs public rates** — realized savings per company and traveler.
-- **Time-to-portal** — new corporate client from sales approval to first
+- **Policy compliance rate** - in-policy bookings as a share of attempts.
+- **Savings vs public rates** - realized savings per company and traveler.
+- **Time-to-portal** - new corporate client from sales approval to first
   booking (target: hours).
-- **Self-service share** — bookings made without hotel sales/front-desk
+- **Self-service share** - bookings made without hotel sales/front-desk
   involvement.
 
 ## 8. Dependencies & Reliance on Other Services
@@ -142,7 +142,7 @@ eCorpBooking emits no events. Its actions trigger events in Hotel8:PMS
    according to the company's credit approval.
 6. Reports show booking volume, spend, savings, and compliance by property,
    traveler, and month, and export cleanly.
-7. All corporate calls are `/proxy/*` and company-scoped — no cross-company
+7. All corporate calls are `/proxy/*` and company-scoped - no cross-company
    leak in any trace.
 
 ## 10. Open Business Questions
@@ -150,7 +150,7 @@ eCorpBooking emits no events. Its actions trigger events in Hotel8:PMS
 - SSO onboarding for companies without an IdP (first-admin verification).
 - Where post-pay/bill-to-company approval state is read from, and how the
   UI communicates pending approvals.
-- Multi-company members (one traveler, two employers) — session binding is
+- Multi-company members (one traveler, two employers) - session binding is
   single-company; is role-switching needed?
 - Corporate `/admin` division of labor between hotel sales tooling and this
   portal.

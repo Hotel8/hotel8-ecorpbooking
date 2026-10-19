@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 name: ecorpbooking
-description: Sentin8 Hotel8:eCorpBooking — corporate booking portal for business travel.
+description: Sentin8 Hotel8:eCorpBooking - corporate booking portal for business travel.
 publish_to: "none"
 version: 0.1.0
 
