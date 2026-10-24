@@ -157,4 +157,4 @@ eCorpBooking emits no events. Its actions trigger events in Hotel8:PMS
 
 ---
 
-**Design attribution:** hotel8:ecorpbooking and its underlying concepts were designed by Hamid Jahanzad <Hamid@Jahanzad.com>.
+**Architecture & Design:** hotel8:ecorpbooking and its underlying concepts were designed by [Hamid Jahanzad](https://www.linkedin.com/in/hamidjahanzad/).
