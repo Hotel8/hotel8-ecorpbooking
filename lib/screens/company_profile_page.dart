@@ -194,7 +194,7 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                   children: profile.approvedProperties.isEmpty
                       ? [
                           const Text(
-                            'No approved property restrictions — all properties allowed.',
+                            'No approved property restrictions - all properties allowed.',
                           ),
                         ]
                       : [

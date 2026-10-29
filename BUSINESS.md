@@ -21,22 +21,22 @@
 
 | Capability | Provided by eCorpBooking |
 |---|---|
-| Corporate login (company code + credentials, SSO) | ✅ |
-| Company-code verification | ✅ |
-| Corporate dashboard (quick search, upcoming bookings, announcements) | ✅ |
-| Corporate search & book (negotiated rates only, policy flags, traveler selection, payment methods) | ✅ |
-| Traveler management (roster CRUD) | ✅ |
-| My Trips (upcoming/past, modify/cancel) | ✅ |
-| Reporting (summary, by-property, by-traveler, by-month) | ✅ |
-| Company profile + travel policies + cost centers | ✅ |
-| Announcements feed (via Post) | ✅ |
-| SSO-free first-admin provisioning | ✅ Request Access provisions the first corporate admin (no-IdP companies); idempotent |
-| Credit-method surfacing | ✅ checkout reads the company's approved credit methods (post-pay / bill-to-company) - approval state is live, not a static flag |
-| Traveler company bindings + role roster | ✅ `pms.company_users` read/write via the corporate surfaces (profiles carry role-at-company) |
-| Corporate `/admin` (branding, codes, rate assignment) | ✅ hotel-sales side: PMS admin RFW "Corporate" page (companies roster, credit methods, user bindings, rate links) rendered by Dash |
-| Corporate invoicing execution | ❌ delegated - Bill8:Ledger (server-side) |
-| Expense/TMS export | ❌ out of scope |
-| Leisure booking | ❌ delegated - Hotel8:eBooking |
+| Corporate login (company code + credentials, SSO) ||
+| Company-code verification ||
+| Corporate dashboard (quick search, upcoming bookings, announcements) ||
+| Corporate search & book (negotiated rates only, policy flags, traveler selection, payment methods) ||
+| Traveler management (roster CRUD) ||
+| My Trips (upcoming/past, modify/cancel) ||
+| Reporting (summary, by-property, by-traveler, by-month) ||
+| Company profile + travel policies + cost centers ||
+| Announcements feed (via Post) ||
+| SSO-free first-admin provisioning |Request Access provisions the first corporate admin (no-IdP companies); idempotent |
+| Credit-method surfacing |checkout reads the company's approved credit methods (post-pay / bill-to-company) - approval state is live, not a static flag |
+| Traveler company bindings + role roster |`pms.company_users` read/write via the corporate surfaces (profiles carry role-at-company) |
+| Corporate `/admin` (branding, codes, rate assignment) |hotel-sales side: PMS admin RFW "Corporate" page (companies roster, credit methods, user bindings, rate links) rendered by Dash |
+| Corporate invoicing execution |delegated - Bill8:Ledger (server-side) |
+| Expense/TMS export |out of scope |
+| Leisure booking |delegated - Hotel8:eBooking |
 | Corporate rate negotiation | ⚙ rate links + company-scoped availability implemented; terms entered by hotel sales on the PMS admin surfaces |
 
 ## 3. Business Capabilities

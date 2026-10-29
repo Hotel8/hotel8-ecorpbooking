@@ -124,7 +124,7 @@ class _MyTripsPageState extends State<MyTripsPage>
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text(
-                      'Date modification — contact your travel manager',
+                      'Date modification - contact your travel manager',
                     ),
                   ),
                 );
@@ -138,7 +138,7 @@ class _MyTripsPageState extends State<MyTripsPage>
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text(
-                      'Traveler change — contact your travel manager',
+                      'Traveler change - contact your travel manager',
                     ),
                   ),
                 );
@@ -160,7 +160,7 @@ class _MyTripsPageState extends State<MyTripsPage>
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      'Added: ${DateFormat('MMM d').format(booking.arrivalDate)} — ${booking.propertyName}',
+                      'Added: ${DateFormat('MMM d').format(booking.arrivalDate)} - ${booking.propertyName}',
                     ),
                   ),
                 );
@@ -332,7 +332,7 @@ class _BookingCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${DateFormat('MMM d').format(booking.arrivalDate)} — ${DateFormat('MMM d').format(booking.departureDate)} · ${booking.numberOfNights} night${booking.numberOfNights != 1 ? "s" : ""}',
+                          '${DateFormat('MMM d').format(booking.arrivalDate)} - ${DateFormat('MMM d').format(booking.departureDate)} · ${booking.numberOfNights} night${booking.numberOfNights != 1 ? "s" : ""}',
                           style: theme.textTheme.bodySmall,
                         ),
                       ],
@@ -543,7 +543,7 @@ class _BookingDetailSheet extends StatelessWidget {
             _DetailRow(
               label: 'Dates',
               value:
-                  '${DateFormat('MMM d, y').format(booking.arrivalDate)} — ${DateFormat('MMM d, y').format(booking.departureDate)}',
+                  '${DateFormat('MMM d, y').format(booking.arrivalDate)} - ${DateFormat('MMM d, y').format(booking.departureDate)}',
             ),
             _DetailRow(label: 'Nights', value: '${booking.numberOfNights}'),
             _DetailRow(label: 'Guests', value: '${booking.numberOfGuests}'),

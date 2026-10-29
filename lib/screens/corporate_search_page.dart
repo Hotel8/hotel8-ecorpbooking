@@ -69,7 +69,7 @@ class _CorporateSearchPageState extends State<CorporateSearchPage> {
         });
       }
     } catch (_) {
-      // Non-fatal — booking defaults to self.
+      // Non-fatal - booking defaults to self.
     }
   }
 
@@ -197,7 +197,7 @@ class _SearchSummaryBar extends StatelessWidget {
           const Icon(Icons.calendar_month, size: 18),
           const SizedBox(width: 8),
           Text(
-            '${DateFormat('MMM d').format(request.arrivalDate)} — ${DateFormat('MMM d').format(request.departureDate)}',
+            '${DateFormat('MMM d').format(request.arrivalDate)} - ${DateFormat('MMM d').format(request.departureDate)}',
             style: theme.textTheme.titleSmall,
           ),
           const SizedBox(width: 8),
@@ -497,7 +497,7 @@ class _BookingSheetState extends State<_BookingSheet> {
 
   /// Live credit approval surface (ecorpbooking/DESIGN.md §4 Credit methods):
   /// the company's POSTPAY/BILL_TO_COMPANY rows decide which credit methods
-  /// the sheet may offer — the static company booleans are fallbacks when the
+  /// the sheet may offer - the static company booleans are fallbacks when the
   /// surface is unreachable.
   List<CreditMethod> _creditMethods = const [];
   bool _creditLoaded = false;
@@ -515,7 +515,7 @@ class _BookingSheetState extends State<_BookingSheet> {
         widget.company.id,
       );
     } on BffException {
-      // Live surface unreachable — fall back to the static company flags.
+      // Live surface unreachable - fall back to the static company flags.
     }
     if (mounted) setState(() => _creditLoaded = true);
   }
@@ -665,7 +665,7 @@ class _BookingSheetState extends State<_BookingSheet> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${DateFormat('MMM d').format(widget.request.arrivalDate)} — ${DateFormat('MMM d').format(widget.request.departureDate)}',
+                        '${DateFormat('MMM d').format(widget.request.arrivalDate)} - ${DateFormat('MMM d').format(widget.request.departureDate)}',
                         style: theme.textTheme.titleSmall,
                       ),
                       Text(

@@ -22,7 +22,7 @@ class HcorpApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Hcorp — Corporate Booking',
+      title: 'Hcorp - Corporate Booking',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
@@ -33,7 +33,7 @@ class HcorpApp extends StatelessWidget {
   }
 }
 
-/// Root widget — shows the login page until the company context is
+/// Root widget - shows the login page until the company context is
 /// resolved, then switches to the bottom-navigation shell.
 class HcorpRoot extends StatefulWidget {
   const HcorpRoot({super.key});
@@ -55,7 +55,7 @@ class _HcorpRootState extends State<HcorpRoot> {
 
   Future<void> _bootstrap() async {
     try {
-      // Same-origin bootstrap — TLS injects the X-Sentin8-* host headers
+      // Same-origin bootstrap - TLS injects the X-Sentin8-* host headers
       // the runtime context resolves from (ecorpbooking/DESIGN.md §2).
       final ctx = await fetchRuntimeContext(appBaseUrl: '');
       setState(() {
@@ -153,7 +153,7 @@ class _HcorpShellState extends State<HcorpShell> {
   }
 }
 
-/// The "Search" tab — a compact search form that pushes the corporate
+/// The "Search" tab - a compact search form that pushes the corporate
 /// search results page when the user taps "Search Corporate Rates".
 class _SearchTab extends StatefulWidget {
   const _SearchTab({required this.client, required this.company});
@@ -359,7 +359,7 @@ class _SearchTabState extends State<_SearchTab> {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          'Company code ${widget.company.companyCode} auto-applied — only corporate negotiated rates will be shown.',
+                          'Company code ${widget.company.companyCode} auto-applied - only corporate negotiated rates will be shown.',
                           style: theme.textTheme.bodySmall,
                         ),
                       ),

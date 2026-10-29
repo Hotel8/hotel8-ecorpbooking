@@ -8,7 +8,7 @@
 /// Thin HTTP client that calls the BFF proxy endpoints (see
 /// `ecorpbooking/DESIGN.md` §4) which in turn
 /// delegate to PMS / Payments / Loyalty / Post. All requests go through the
-/// BFF server-side token guardian — Hcorp never talks to a backend directly.
+/// BFF server-side token guardian - Hcorp never talks to a backend directly.
 
 import 'dart:convert';
 
@@ -25,7 +25,7 @@ class BffClient {
 
   final String _baseUrl;
 
-  /// Property the portal serves — from the App runtime context at
+  /// Property the portal serves - from the App runtime context at
   /// bootstrap (`ecorpbooking/DESIGN.md` §2). PMS routes are property-scoped.
   final String _propertyId;
   final http.Client _httpClient;
@@ -112,9 +112,9 @@ class BffClient {
   // Authentication
   // ═════════════════════════════════════════════════════════════════════════
 
-  /// `POST /proxy/auth/v1/sign-in` — corporate members authenticate with
+  /// `POST /proxy/auth/v1/sign-in` - corporate members authenticate with
   /// the standard env identity (no vertical-specific Auth endpoints; the
-  /// company binding is a PMS CRM membership — `ecorpbooking/DESIGN.md` §4).
+  /// company binding is a PMS CRM membership - `ecorpbooking/DESIGN.md` §4).
   ///
   /// Authenticates a corporate user with email + password. Returns the
   /// company context (code, name, SSO availability).
@@ -130,19 +130,19 @@ class BffClient {
     return Company.fromJson(json['company'] as Map<String, dynamic>? ?? json);
   }
 
-  /// SSO — the standard BFF/OAuth redirect (companies with an IdP ride
+  /// SSO - the standard BFF/OAuth redirect (companies with an IdP ride
   /// Auth's enterprise-connection SSO). No separate corporate SSO endpoint.
   ///
-  /// SSO login — redirects to the company's identity provider.
+  /// SSO login - redirects to the company's identity provider.
   Future<void> corporateSso({required String companyCode}) async {
     // SSO redirects through the BFF → Auth enterprise connection for the
     // company's IdP; the round trip completes at /auth/callback with the
-    // session cookie set — no direct response body.
+    // session cookie set - no direct response body.
     await _postJson('/proxy/auth/v1/sso-start', {'company_code': companyCode});
   }
 
   /// `GET /proxy/hotel8-pms/v1/properties/{pid}/profiles?profile_type=COMPANY&q=`
-  /// — company-code verification resolves the company profile on the PMS
+  /// - company-code verification resolves the company profile on the PMS
   /// CRM registry (real route; profile rows carry the company code).
   ///
   /// Verify a company code during registration / login.
@@ -158,8 +158,8 @@ class BffClient {
     return Company.fromJson(items.first as Map<String, dynamic>);
   }
 
-  /// `GET .../companies/{id}/admin-provisioning` — whether the company still
-  /// needs its first corporate admin (no IdP + no bound ADMIN) — the
+  /// `GET .../companies/{id}/admin-provisioning` - whether the company still
+  /// needs its first corporate admin (no IdP + no bound ADMIN) - the
   /// provisioning-flow decision after company-code verification
   /// (ecorpbooking/DESIGN.md §4).
   Future<bool> companyRequiresProvisioning(String companyId) async {
@@ -170,7 +170,7 @@ class BffClient {
     return json['requires_provisioning'] as bool? ?? false;
   }
 
-  /// `PUT .../companies/{id}/admin-provisioning` — provision the first
+  /// `PUT .../companies/{id}/admin-provisioning` - provision the first
   /// corporate admin for a company without an IdP (ECRP-3).
   Future<void> provisionCompanyAdmin({
     required String companyId,
@@ -214,7 +214,7 @@ class BffClient {
   // Corporate rates / availability
   // ═════════════════════════════════════════════════════════════════════════
 
-  /// `GET /proxy/hotel8-pms/v1/properties/{p}/negotiated-rate-plans` —
+  /// `GET /proxy/hotel8-pms/v1/properties/{p}/negotiated-rate-plans`  - 
   /// the negotiated rate plans linked to the company (real PMS route; the
   /// link-company endpoint binds them).
   Future<List<CorporateRate>> getCorporateRates({
@@ -238,7 +238,7 @@ class BffClient {
   ///
   /// Search availability for corporate-negotiated rates only. The server
   /// applies the company rate-mix policy (pms/DESIGN.md §4): only plans
-  /// linked to the company profile are returned — public rates are withheld.
+  /// linked to the company profile are returned - public rates are withheld.
   Future<List<SearchResult>> searchCorporateAvailability(
     CorporateSearchRequest request, {
     required String companyId,
@@ -347,7 +347,7 @@ class BffClient {
   // Traveler management
   // ═════════════════════════════════════════════════════════════════════════
 
-  /// Traveler roster — company-linked GUEST profiles (profile_id chain via
+  /// Traveler roster - company-linked GUEST profiles (profile_id chain via
   /// /pms/profiles; the roster is the company's linked-guest list).
   Future<List<Traveler>> getTravelers(String companyId) async {
     final json = await _getJson(
@@ -361,7 +361,7 @@ class BffClient {
         .toList();
   }
 
-  /// `POST /proxy/hotel8-pms/v1/properties/{p}/profiles` — roster add.
+  /// `POST /proxy/hotel8-pms/v1/properties/{p}/profiles` - roster add.
   Future<Traveler> addTraveler(String companyId, Traveler traveler) async {
     final json = await _postJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId/profiles',
@@ -380,7 +380,7 @@ class BffClient {
     return Traveler.fromJson(json);
   }
 
-  /// Roster remove — via the profile update route.
+  /// Roster remove - via the profile update route.
   Future<void> removeTraveler(String companyId, String travelerId) async {
     await _deleteJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId'
@@ -392,7 +392,7 @@ class BffClient {
   // Travel policies
   // ═════════════════════════════════════════════════════════════════════════
 
-  /// Travel policies — company profile field set (PMS CRM).
+  /// Travel policies - company profile field set (PMS CRM).
   Future<List<TravelPolicy>> getTravelPolicies(String companyId) async {
     final json = await _getJson(
       '/proxy/hotel8-pms/v1/properties/$_propertyId/profiles/\$companyId/policies',
@@ -421,7 +421,7 @@ class BffClient {
   // Announcements
   // ═════════════════════════════════════════════════════════════════════════
 
-  /// `GET /proxy/post/v1/messages?category=ANNOUNCEMENT` — company
+  /// `GET /proxy/post/v1/messages?category=ANNOUNCEMENT` - company
   /// announcements ride Sentin8:Post's message list.
   Future<List<Announcement>> getAnnouncements(String companyId) async {
     final json = await _getJson(
@@ -460,7 +460,7 @@ class BffClient {
   // Corporate credit methods + company bindings (PMS corporate surfaces)
   // ═════════════════════════════════════════════════════════════════════
 
-  /// `GET .../companies/{id}/payment-methods?approved_only=true` — the
+  /// `GET .../companies/{id}/payment-methods?approved_only=true` - the
   /// credit-approved methods (post-pay / bill-to-company) checkout can bill.
   Future<List<CreditMethod>> getApprovedCreditMethods(String companyId) async {
     final json = await _getJson(
@@ -473,7 +473,7 @@ class BffClient {
         .toList();
   }
 
-  /// `GET .../companies/by-traveler/{profile_id}` — companies the signed-in
+  /// `GET .../companies/by-traveler/{profile_id}` - companies the signed-in
   /// traveler is bound to (multi-company session switcher).
   Future<List<CompanyBinding>> getCompanyBindings(
     String travelerProfileId,
@@ -488,7 +488,7 @@ class BffClient {
         .toList();
   }
 
-  /// `GET .../companies/{id}/users` — the company's traveler roster
+  /// `GET .../companies/{id}/users` - the company's traveler roster
   /// (binding rows with role-at-company).
   Future<List<Map<String, dynamic>>> getCompanyUsers(String companyId) async {
     final json = await _getJson(

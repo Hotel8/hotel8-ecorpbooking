@@ -6,8 +6,8 @@
 /// Hcorp data models.
 ///
 /// Simple Dart classes mirroring the PMS corporate contract shapes (see
-/// `ecorpbooking/DESIGN.md` §3–4) and the BFF
-/// proxy surface for Hcorp. Hcorp is the corporate counterpart to Hbook —
+/// `ecorpbooking/DESIGN.md` §3 - 4) and the BFF
+/// proxy surface for Hcorp. Hcorp is the corporate counterpart to Hbook  - 
 /// it serves business travelers with negotiated rates, company codes,
 /// and policy enforcement rather than public leisure rates.
 
@@ -994,7 +994,7 @@ class CreditMethod {
       );
 }
 
-/// A company the signed-in traveler is bound to (`pms.company_users` row) —
+/// A company the signed-in traveler is bound to (`pms.company_users` row)  - 
 /// the multi-company session switcher's option list.
 class CompanyBinding {
   final String companyProfileId;

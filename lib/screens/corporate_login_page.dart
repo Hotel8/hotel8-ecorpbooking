@@ -96,7 +96,7 @@ class _CorporateLoginPageState extends State<CorporateLoginPage> {
         // Multi-company travelers (ecorpbooking/DESIGN.md §10): resolve the
         // session subject's company bindings; several companies present the
         // switcher, one lands directly. The session binds ONE company per
-        // run — no org-wide pass-through.
+        // run - no org-wide pass-through.
         List<CompanyBinding> bindings = const [];
         try {
           bindings = await widget.client.getCompanyBindings(company.id);
@@ -459,7 +459,7 @@ class _RequestAccessSheetState extends State<_RequestAccessSheet> {
     // First-admin provisioning (ecorpbooking/DESIGN.md §4 SSO onboarding):
     // sheet collects company + first admin; the PMS provisions the ADMIN
     // company_users row server-side. Transport failures keep the
-    // informational message — sales onboarding proceeds manually.
+    // informational message - sales onboarding proceeds manually.
     String message =
         'Access request submitted. Our sales team will contact you within 24 hours.';
     try {
@@ -476,7 +476,7 @@ class _RequestAccessSheetState extends State<_RequestAccessSheet> {
           'Provisioning request accepted. Check ${_emailController.text.trim()} '
           'for your corporate admin invitation.';
     } on BffException {
-      // Company code unknown or surface unreachable — leave the sales-team
+      // Company code unknown or surface unreachable - leave the sales-team
       // message; onboarding proceeds manually.
     } finally {
       if (mounted) setState(() => _submitting = false);

@@ -566,7 +566,7 @@ class _BookingMiniCard extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         subtitle: Text(
-          '${DateFormat('MMM d').format(booking.arrivalDate)} — ${DateFormat('MMM d').format(booking.departureDate)} · ${booking.numberOfNights} nights',
+          '${DateFormat('MMM d').format(booking.arrivalDate)} - ${DateFormat('MMM d').format(booking.departureDate)} · ${booking.numberOfNights} nights',
         ),
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.center,

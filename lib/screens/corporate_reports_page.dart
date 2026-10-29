@@ -145,7 +145,7 @@ class _CorporateReportsPageState extends State<CorporateReportsPage> {
                 padding: const EdgeInsets.only(bottom: 16),
                 child: Center(
                   child: Text(
-                    '${DateFormat('MMM d, y').format(_dateRange!.start)} — ${DateFormat('MMM d, y').format(_dateRange!.end)}',
+                    '${DateFormat('MMM d, y').format(_dateRange!.start)} - ${DateFormat('MMM d, y').format(_dateRange!.end)}',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                         ),
