@@ -6,7 +6,7 @@
 name: ecorpbooking
 description: Sentin8 Hotel8:eCorpBooking - corporate booking portal for business travel.
 publish_to: "none"
-version: 0.1.0
+version: 1.0.0
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
